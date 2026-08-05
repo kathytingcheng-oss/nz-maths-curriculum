@@ -1,0 +1,81 @@
+.year-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 12px 4vw;
+  border-bottom: 1px solid var(--line);
+  background: #e3efe9;
+}
+
+.year-tabs > span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.year-tabs > div {
+  display: flex;
+  gap: 8px;
+}
+
+.year-tabs button {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 150px;
+  padding: 9px 14px;
+  border: 1px solid #bfd4ca;
+  border-radius: 13px;
+  background: var(--paper);
+  cursor: pointer;
+}
+
+.year-tabs button b {
+  font: 700 17px Georgia, serif;
+}
+
+.year-tabs button small {
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.year-tabs button.active {
+  border-color: var(--fern);
+  background: var(--fern);
+  color: white;
+  box-shadow: 0 6px 14px rgba(23, 73, 60, 0.14);
+}
+
+.year-tabs button.active small {
+  color: #d9ebe4;
+}
+
+@media (max-width: 680px) {
+  .year-tabs {
+    align-items: stretch;
+    gap: 8px;
+    padding: 10px 14px;
+  }
+
+  .year-tabs > span {
+    display: none;
+  }
+
+  .year-tabs > div {
+    width: 100%;
+  }
+
+  .year-tabs button {
+    flex: 1;
+    min-width: 0;
+    justify-content: center;
+    padding: 9px;
+  }
+
+  .year-tabs button small {
+    display: none;
+  }
+}
