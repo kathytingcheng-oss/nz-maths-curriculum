@@ -1,0 +1,75 @@
+.official-practice {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  margin-top: 22px;
+  padding: 18px;
+  border: 1px solid #9fc7bb;
+  border-radius: 18px;
+  background: linear-gradient(120deg, #e1f1eb, #f5fbf8);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+}
+
+.official-practice:hover {
+  transform: translateY(-2px);
+  border-color: var(--fern);
+  box-shadow: 0 10px 24px rgba(23, 73, 60, 0.12);
+}
+
+.official-mark {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+  background: var(--fern);
+  color: white;
+  font: 700 18px Georgia, serif;
+}
+
+.official-practice small,
+.official-practice b,
+.official-practice p {
+  display: block;
+}
+
+.official-practice small {
+  color: var(--coast);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.13em;
+}
+
+.official-practice b {
+  margin-top: 4px;
+  font: 700 18px Georgia, serif;
+}
+
+.official-practice p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.official-practice strong {
+  padding: 10px 13px;
+  border-radius: 11px;
+  background: var(--fern);
+  color: white;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+@media (max-width: 680px) {
+  .official-practice {
+    grid-template-columns: auto 1fr;
+  }
+
+  .official-practice strong {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+}
