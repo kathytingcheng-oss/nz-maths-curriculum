@@ -13,6 +13,7 @@ button:focus-visible,a:focus-visible{outline:3px solid #f0b94e;outline-offset:3p
 .strand-bar button:hover{background:#e9f3ef;color:var(--fern)}
 .topic-list button:hover{background:#edf6f3}
 .practice-section,.video-card,.goals-card,.topic-list{box-shadow:0 12px 34px rgba(18,63,55,.07)}
+.video-column{display:grid;gap:14px;min-width:0}
 .set-grid button:focus-visible,.answers button:focus-visible{outline-color:#f0b94e}
 .official-practice{box-shadow:0 8px 24px rgba(18,63,55,.06)}
 @media(max-width:680px){.identity .mark{width:42px;height:42px}.identity b{font-size:16px}}
