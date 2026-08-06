@@ -11,8 +11,8 @@ export async function generateMetadata():Promise<Metadata>{
   const host=incoming.get("x-forwarded-host")||incoming.get("host")||"localhost:3000";
   const protocol=incoming.get("x-forwarded-proto")||(host.includes("localhost")?"http":"https");
   const base=`${protocol}://${host}`;
-  const title="Ryan's Year 2 & 3 Maths Fieldbook";
-  const description="Complete New Zealand Year 2 and Year 3 maths learning with video lessons and 10,000 interactive practice questions.";
+  const title="NZ Maths Curriculum | Years 2 & 3";
+  const description="New Zealand Year 2 and Year 3 Mathematics and Statistics learning with video lessons and interactive practice.";
   return {title,description,openGraph:{title,description,type:"website",images:[{url:`${base}/og.png`,width:1536,height:1024,alt:title}]},twitter:{card:"summary_large_image",title,description,images:[`${base}/og.png`]}};
 }
 
