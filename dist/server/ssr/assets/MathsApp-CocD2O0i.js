@@ -268,8 +268,8 @@ var TOPICS = [
 		videoTitle2: "Seasons in New Zealand: Temperature and Climate by Month · Alexey-L",
 		videoId3: "061ePX3k-hA",
 		videoTitle3: "Four Seasons in the Southern Hemisphere · Jack Hartmann",
-		videoId4: "OuaBg3Hjqoc",
-		videoTitle4: "Choosing a Sensible Time Unit · Khan Academy"
+		videoId4: "ULR9LWiaKRQ",
+		videoTitle4: "Duration Units: Seconds, Minutes and Hours · Homeschool Pop"
 	},
 	{
 		id: "clock",

@@ -11668,7 +11668,7 @@ var client_references_default = {
 		};
 	},
 	"cba597c2b39c": async () => {
-		const m = await import("./assets/MathsApp-BXvP4Rzz.js");
+		const m = await import("./assets/MathsApp-CocD2O0i.js");
 		return { get "default"() {
 			return m["default"];
 		} };
