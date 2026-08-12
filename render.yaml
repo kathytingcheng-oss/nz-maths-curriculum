@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: nz-maths-curriculum-backup
+    name: nz-maths-curriculum
     runtime: node
     plan: free
     buildCommand: npm ci && npm run build
