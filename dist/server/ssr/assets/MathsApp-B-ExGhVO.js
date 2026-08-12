@@ -346,7 +346,13 @@ var TOPICS = [
 		],
 		videoId: COMPILATION,
 		videoStart: 3804,
-		videoTitle: "Data · Scratch Garden"
+		videoTitle: "Data · Scratch Garden",
+		videoId2: "Va_slzMjcgg",
+		videoTitle2: "Tally Charts: Groups of Five · IXL",
+		videoId3: "yZJR2MzkBrU",
+		videoTitle3: "Picture Graphs · NUMBEROCK",
+		videoId4: "BOOcZfnTYPo",
+		videoTitle4: "Dot Plots · Elementary Math"
 	},
 	{
 		id: "interpret-data",
@@ -361,7 +367,11 @@ var TOPICS = [
 		],
 		videoId: COMPILATION,
 		videoStart: 3804,
-		videoTitle: "Understanding Data · Scratch Garden"
+		videoTitle: "Understanding Data · Scratch Garden",
+		videoId2: "Va_slzMjcgg",
+		videoTitle2: "Compare Categories and Find Totals · IXL",
+		videoId3: "yZJR2MzkBrU",
+		videoTitle3: "Read Picture Graphs and Compare Data · NUMBEROCK"
 	}
 ];
 var YEAR3_TOPICS = [

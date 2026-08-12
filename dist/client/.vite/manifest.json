@@ -11,7 +11,7 @@
     "name": "rolldown-runtime"
   },
   "app/MathsApp.tsx": {
-    "file": "assets/MathsApp-CNJDZbrl.js",
+    "file": "assets/MathsApp-Dvj2tcAQ.js",
     "name": "MathsApp",
     "src": "app/MathsApp.tsx",
     "isDynamicEntry": true,
@@ -21,7 +21,7 @@
     ]
   },
   "node_modules/vinext/dist/shims/layout-segment-context.js": {
-    "file": "assets/layout-segment-context-B4jSDdCC.js",
+    "file": "assets/layout-segment-context-C43l_UIH.js",
     "name": "layout-segment-context",
     "src": "node_modules/vinext/dist/shims/layout-segment-context.js",
     "isDynamicEntry": true,
@@ -32,7 +32,7 @@
     ]
   },
   "virtual:vinext-app-browser-entry": {
-    "file": "assets/index-C57zHVfX.js",
+    "file": "assets/index-V0Aa86Kd.js",
     "name": "index",
     "src": "virtual:vinext-app-browser-entry",
     "isEntry": true,
