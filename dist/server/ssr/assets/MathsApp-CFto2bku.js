@@ -314,9 +314,12 @@ var TOPICS = [
 			"Recognise a turn",
 			"Predict the next shape orientation"
 		],
-		videoId: COMPILATION,
-		videoStart: 2880,
-		videoTitle: "Shapes · Scratch Garden"
+		videoId: "X0hllwR2zL4",
+		videoTitle: "Geometry Transformations: Flip, Slide and Turn · Math Song",
+		videoId2: "nmCkZT_-9QY",
+		videoTitle2: "Math Lesson: Slides, Flips and Turns",
+		videoId3: "0Z1aUhGCZs0",
+		videoTitle3: "Geometric Transformations · Colin Dodds"
 	},
 	{
 		id: "position",
