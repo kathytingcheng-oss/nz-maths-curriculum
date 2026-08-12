@@ -156,7 +156,10 @@ function makeQuestions(topic:Topic,setIndex:number):Question[]{
     } else if(topic.id==="shapes"){
       const item=pick(shapes);out.push(q(`Which shape has ${item.f}?`,item.n,shapes.filter(s=>s.n!==item.n).sort(()=>random()-.5).slice(0,3).map(s=>s.n),"Use the shape's features, not only its appearance.",random));
     } else if(topic.id==="shape-moves"){
-      const moves=["slide","quarter turn","half turn"],pat=[pick(moves),pick(moves)];if(pat[0]===pat[1])pat[1]=moves[(moves.indexOf(pat[0])+1)%3];const ans=pat[i%2];out.push(q(`Continue the movement pattern: ${pat[0]}, ${pat[1]}, ${pat[0]}, ${pat[1]}, __`,ans,moves.filter(x=>x!==ans).concat(["full stop"]),"The two movements repeat in the same order.",random));
+      const orientations=["▲","▶","▼","◀"],start=Math.floor(random()*4),turn=i%2===0?1:2;
+      const a=orientations[start],b=orientations[(start+turn)%4],c=orientations[(start+turn*2)%4],answer=orientations[(start+turn*3)%4];
+      const turnName=turn===1?"quarter turn":"half turn";
+      out.push(q(`Look at the shape pattern:\n${a}  —slide→  ${a}  —${turnName}→  ${b}  —slide→  ${b}  —${turnName}→  ${c}  —slide→  ${c}  —${turnName}→  __\n\nWhich shape orientation comes next?`,answer,orientations.filter(x=>x!==answer),"A slide changes the position but keeps the same orientation. A turn changes the direction the shape points.",random));
     } else if(topic.id==="position"){
       const dirs=["left","right","forward","backward"],first=pick(dirs),second=pick(dirs);out.push(q(`A learner moves ${first}, then ${second}. Which instruction did they follow first?`,first,dirs.filter(d=>d!==first),"Read movement instructions in order.",random));
     } else if(topic.id==="collect-data"){
