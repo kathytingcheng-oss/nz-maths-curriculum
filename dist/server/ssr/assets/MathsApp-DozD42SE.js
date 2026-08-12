@@ -1,0 +1,2214 @@
+import { a as require_react, o as __toESM, t as require_jsx_runtime } from "../index.js";
+//#region app/MathsApp.tsx
+var import_react = /* @__PURE__ */ __toESM(require_react(), 1);
+var import_jsx_runtime = require_jsx_runtime();
+var PROGRESS_KEY = "nz-maths-curriculum-progress";
+var LEGACY_PROGRESS_KEY = "ryan-year2-maths-progress";
+var STRANDS = [
+	"Number",
+	"Algebra",
+	"Measurement",
+	"Geometry",
+	"Statistics"
+];
+var CURRICULUM_URLS = {
+	2: "https://www.education.govt.nz/parents-and-caregivers/schools-year-0-13/parent-portal/guide-for-the-new-zealand-curriculum-years-0-to-8/year-2-new-zealand-curriculum/mathematics-and-statistics-in-year-2",
+	3: "https://www.education.govt.nz/parents-and-caregivers/schools-year-0-13/parent-portal/guide-for-the-new-zealand-curriculum-years-0-to-8/year-3-new-zealand-curriculum/mathematics-and-statistics-in-year-3"
+};
+var OFFICIAL_YEAR3_PRACTICE_URL = "https://nzc-maths-practice.nz/year/Year%203/";
+var COMPILATION = "RdzCXBgB-9s";
+var TOPICS = [
+	{
+		id: "numbers-120",
+		strand: "Number",
+		title: "Numbers to 120",
+		focus: "Read • write • order",
+		summary: "Read, write, order and describe whole numbers up to 120.",
+		outcomes: [
+			"Recognise, read and write numbers to 120",
+			"Order numbers from smallest to largest",
+			"Say the number before and after"
+		],
+		videoId: "WwGwQ4oGloY",
+		videoTitle: "Counting to 120 · Math & Learning Videos 4 Kids"
+	},
+	{
+		id: "skip-counting",
+		strand: "Number",
+		title: "Counting & Skip Counting",
+		focus: "Forward • backward • skip count",
+		summary: "Count forwards and backwards in 1s, 2s, 5s and 10s from different starting points.",
+		outcomes: [
+			"Count forwards and backwards",
+			"Skip count in 2s, 5s and 10s",
+			"Find missing numbers in a sequence"
+		],
+		videoId: "DhiklliLG80",
+		videoTitle: "Skip Counting for Kids · Rock 'N Learn"
+	},
+	{
+		id: "te-reo-numbers",
+		strand: "Number",
+		title: "Tau Māori to 100",
+		focus: "Numbers in te reo Māori",
+		summary: "Use te reo Māori for familiar numbers and build tens up to 100.",
+		outcomes: [
+			"Recognise tahi to tekau",
+			"Build multiples of ten",
+			"Match English and te reo Māori numbers"
+		],
+		videoId: "Ik4mhRKQBds",
+		videoTitle: "Tau Māori numbers · YouTube lesson"
+	},
+	{
+		id: "place-value",
+		strand: "Number",
+		title: "Place Value",
+		focus: "Hundreds • tens • ones",
+		summary: "Show numbers as hundreds, tens and ones, then partition them in different ways.",
+		outcomes: [
+			"Identify hundreds, tens and ones",
+			"Partition numbers such as 47 = 40 + 7",
+			"Explain the value of each digit"
+		],
+		videoId: "T5Qf0qSSJFI",
+		videoTitle: "Place Value · Math Antics"
+	},
+	{
+		id: "number-line",
+		strand: "Number",
+		title: "Number Lines & Comparing",
+		focus: "Estimate • compare • odd and even",
+		summary: "Locate approximate values on a number line and compare numbers using mathematical language.",
+		outcomes: [
+			"Place values approximately on a 0–120 line",
+			"Use <, > and =",
+			"Identify odd and even numbers"
+		],
+		videoId: "tJrSILRXOUc",
+		videoTitle: "Comparing Numbers on a Number Line · Khan Academy",
+		videoId2: "3qisu9NF1_0",
+		videoTitle2: "Greater Than, Less Than & Equal · NUMBEROCK",
+		videoId3: "eF_FxSW8QwY",
+		videoTitle3: "Even and Odd Numbers · Smile and Learn"
+	},
+	{
+		id: "add-sub",
+		strand: "Number",
+		title: "Addition & Subtraction",
+		focus: "Tens-and-ones strategies",
+		summary: "Add and subtract by splitting numbers into tens and ones.",
+		outcomes: [
+			"Add and subtract within 120",
+			"Use tens-and-ones strategies",
+			"Check whether an answer is reasonable"
+		],
+		videoId: "7J1OkxuyLD0",
+		videoTitle: "Adding & Subtracting · Scratch Garden"
+	},
+	{
+		id: "facts-doubles",
+		strand: "Number",
+		title: "Facts, Doubles & Halves",
+		focus: "Facts within 20",
+		summary: "Recall addition facts to 10 and explore related facts, doubles and halves to 20.",
+		outcomes: [
+			"Recall addition facts to 10",
+			"Use related facts to 20",
+			"Find doubles and halves"
+		],
+		videoId: "lD9tjBUiXs0",
+		videoTitle: "Number Bonds to 10 · Jack Hartmann",
+		videoId2: "NDqbCfplYrg",
+		videoTitle2: "Adding Doubles · Jack Hartmann",
+		videoId3: "7EJHATyTek8",
+		videoTitle3: "Teaching Halving Numbers · Maths with Mum"
+	},
+	{
+		id: "groups-sharing",
+		strand: "Number",
+		title: "Equal Groups & Sharing",
+		focus: "Groups of 2 • 5 • 10",
+		summary: "Model multiplication and division using equal groups, sharing and skip counting.",
+		outcomes: [
+			"Make equal groups of 2, 5 and 10",
+			"Connect repeated addition to multiplication",
+			"Share a set equally"
+		],
+		videoId: "fPDSp5HElZw",
+		videoTitle: "Equal Groups · Improving Maths",
+		videoId2: "fgoUVDoHx5M",
+		videoTitle2: "How to Share Equally · Learningvids4kids"
+	},
+	{
+		id: "fractions",
+		strand: "Number",
+		title: "Fractions",
+		focus: "Halves • thirds • quarters",
+		summary: "Recognise, show and compare halves, thirds and quarters of wholes and sets.",
+		outcomes: [
+			"Recognise ½, ⅓ and ¼",
+			"Know that fractional parts must be equal",
+			"Find fractions of a set"
+		],
+		videoId: "362JVVvgYPE",
+		videoTitle: "Fractions! · Scratch Garden"
+	},
+	{
+		id: "money",
+		strand: "Number",
+		title: "New Zealand Money",
+		focus: "Dollars • cents • totals to $20",
+		summary: "Understand dollars and cents, recognise New Zealand money, make equal amounts and find totals up to $20.",
+		outcomes: [
+			"Recognise NZ coin and note values",
+			"Know that 100 cents equals 1 dollar",
+			"Make and add money amounts up to $20"
+		],
+		videoId: "DbYbIB4m3RM",
+		videoStart: 533,
+		videoTitle: "Dollars and Cents · Math Antics"
+	},
+	{
+		id: "equations",
+		strand: "Algebra",
+		title: "True Equations & Missing Numbers",
+		focus: "Equal means the same value",
+		summary: "Understand equality, decide whether number sentences are true, and solve open equations.",
+		outcomes: [
+			"Understand that = means both sides are equal",
+			"Use =, < and >",
+			"Find a missing number"
+		],
+		videoId: "gEGKvx1wlFg",
+		videoTitle: "Equal sign · Khan Academy",
+		videoId2: "jL-_SGVDP3Y",
+		videoTitle2: "Comparing Numbers with <, > and = · Math & Learning Videos 4 Kids",
+		videoId3: "hpNWjHDDZvM",
+		videoTitle3: "True/False Equations and Missing Numbers · The Primary Math Teacher"
+	},
+	{
+		id: "patterns",
+		strand: "Algebra",
+		title: "Repeating Patterns",
+		focus: "Find • continue • explain",
+		summary: "Identify the repeating unit, predict what comes next and find missing elements.",
+		outcomes: [
+			"Identify what repeats",
+			"Continue three-element patterns",
+			"Describe a pattern rule"
+		],
+		videoId: "1WJcYwSu0-U",
+		videoTitle: "Repeating Patterns · Kids Academy"
+	},
+	{
+		id: "length",
+		strand: "Measurement",
+		title: "Length with Informal Units",
+		focus: "Estimate • measure • compare",
+		summary: "Estimate and measure length consistently using steps, string, pencils or paper clips.",
+		outcomes: [
+			"Estimate before measuring",
+			"Measure with equal informal units",
+			"Compare longer, shorter, depth and width"
+		],
+		videoId: "q8MV4MY6rHs",
+		videoTitle: "Measure Length with Nonstandard Units · The Eagle's Nest",
+		videoId2: "Z-zITJHerSk",
+		videoTitle2: "Compare Length with Nonstandard Units · The Eagle's Nest"
+	},
+	{
+		id: "mass-capacity",
+		strand: "Measurement",
+		title: "Mass & Capacity",
+		focus: "Heavier • lighter • holds more",
+		summary: "Estimate and compare weight and capacity using blocks, cups and everyday containers.",
+		outcomes: [
+			"Compare heavier and lighter",
+			"Compare shallow and deep",
+			"Measure capacity with equal cupfuls"
+		],
+		videoId: "E6iJI66AOv8",
+		videoTitle: "Identifying Lighter and Heavier Using a Balance · The Eagle's Nest",
+		videoId2: "5O8GxqU_lck",
+		videoTitle2: "Measuring Capacity with Non-standard Units · TicTacLearn",
+		videoId3: "znQFP8i3mPg",
+		videoTitle3: "Understanding Capacity: More or Less · STEM School"
+	},
+	{
+		id: "turns",
+		strand: "Measurement",
+		title: "Turns",
+		focus: "Clockwise • anti-clockwise • fractions",
+		summary: "Describe clockwise and anti-clockwise full, half, quarter and three-quarter turns.",
+		outcomes: [
+			"Name common fractions of a turn",
+			"Distinguish clockwise and anti-clockwise",
+			"Predict a finishing direction"
+		],
+		videoId: "JxYjvrtGeBA",
+		videoTitle: "Turns Part 1 · Matholia",
+		videoId2: "3kxFbp6sLeA",
+		videoTitle2: "Whole, Half, Quarter and Three-Quarter Turns · Insight HQ"
+	},
+	{
+		id: "calendar",
+		strand: "Measurement",
+		title: "Calendar & Duration",
+		focus: "Months • seasons • elapsed time",
+		summary: "Order months and seasons, and describe spans using years, months, weeks, days and hours.",
+		outcomes: [
+			"Name and order the months",
+			"Match NZ seasons to months",
+			"Choose sensible duration units"
+		],
+		videoId: "jr4HnhY4eUk",
+		videoTitle: "Months, Days and Seasons · ClassMonitor",
+		videoId2: "M4Wf9L6_PBA",
+		videoTitle2: "Seasons in New Zealand: Temperature and Climate by Month · Alexey-L",
+		videoId3: "061ePX3k-hA",
+		videoTitle3: "Four Seasons in the Southern Hemisphere · Jack Hartmann",
+		videoId4: "OuaBg3Hjqoc",
+		videoTitle4: "Choosing a Sensible Time Unit · Khan Academy"
+	},
+	{
+		id: "clock",
+		strand: "Measurement",
+		title: "Analogue Time",
+		focus: "O'clock • half past • quarter hours",
+		summary: "Tell analogue time to the hour, half-hour and quarter-hour.",
+		outcomes: [
+			"Read o'clock and half past",
+			"Read quarter past and quarter to",
+			"Match analogue language to digital time"
+		],
+		videoId: "d6FJx3va9bQ",
+		videoTitle: "Telling Time: O'clock, Half Past and Quarters · Janine Williams",
+		videoId2: "HKZOGR1pz1I",
+		videoTitle2: "Telling Time: Quarter To · Learn and Play Online"
+	},
+	{
+		id: "shapes",
+		strand: "Geometry",
+		title: "2D & 3D Shapes",
+		focus: "Name • describe • sort",
+		summary: "Recognise, describe and sort shapes by edges, corners, faces and vertices.",
+		outcomes: [
+			"Name common 2D and 3D shapes",
+			"Describe edges, faces and vertices",
+			"Sort shapes by their features"
+		],
+		videoId: "CYVmmTaqIPU",
+		videoTitle: "Faces, Edges and Vertices · Noodle Kidz"
+	},
+	{
+		id: "shape-moves",
+		strand: "Geometry",
+		title: "Slide & Turn Shape Patterns",
+		focus: "Move • turn • continue",
+		summary: "Slide and turn 2D shapes to create and continue patterns.",
+		outcomes: [
+			"Recognise a slide",
+			"Recognise a turn",
+			"Predict the next shape orientation"
+		],
+		videoId: COMPILATION,
+		videoStart: 2880,
+		videoTitle: "Shapes · Scratch Garden"
+	},
+	{
+		id: "position",
+		strand: "Geometry",
+		title: "Position & Directions",
+		focus: "Position • movement • routes",
+		summary: "Follow and give movement instructions, including distances and turns, and read simple diagrams.",
+		outcomes: [
+			"Use left, right, forward and backward",
+			"Follow multi-step directions",
+			"Describe an object's position"
+		],
+		videoId: COMPILATION,
+		videoStart: 3344,
+		videoTitle: "Location & Directions · Scratch Garden"
+	},
+	{
+		id: "collect-data",
+		strand: "Statistics",
+		title: "Collect & Represent Data",
+		focus: "Tallies • tables • graphs",
+		summary: "Sort and record data using tallies, tables, picture graphs and dot plots.",
+		outcomes: [
+			"Choose a useful survey question",
+			"Record tally marks in groups of five",
+			"Read tables, picture graphs and dot plots"
+		],
+		videoId: COMPILATION,
+		videoStart: 3804,
+		videoTitle: "Data · Scratch Garden"
+	},
+	{
+		id: "interpret-data",
+		strand: "Statistics",
+		title: "Compare & Explain Data",
+		focus: "Compare • answer • conclude",
+		summary: "Compare results and choose or write the statement that best answers a statistical question.",
+		outcomes: [
+			"Find most and least common categories",
+			"Answer how many more and total questions",
+			"Choose a conclusion supported by data"
+		],
+		videoId: COMPILATION,
+		videoStart: 3804,
+		videoTitle: "Understanding Data · Scratch Garden"
+	}
+];
+var YEAR3_TOPICS = [
+	{
+		id: "y3-numbers-1000",
+		strand: "Number",
+		title: "Numbers & Place Value to 1,000",
+		focus: "Read • write • compare • order",
+		summary: "Read, write, compare and order whole numbers to 1,000, and explain the value of every digit.",
+		outcomes: [
+			"Read and write numbers to 1,000",
+			"Compare and order three-digit numbers",
+			"Partition hundreds, tens and ones"
+		],
+		videoId: "T5Qf0qSSJFI",
+		videoTitle: "Place Value · Math Antics"
+	},
+	{
+		id: "y3-facts",
+		strand: "Number",
+		title: "Multiplication & Division Facts",
+		focus: "2s • 3s • 4s • 5s • 8s • 10s",
+		summary: "Count forwards and backwards and recall multiplication and division facts for the Year 3 fact families.",
+		outcomes: [
+			"Skip count in 2s, 3s, 4s, 5s, 8s and 10s",
+			"Recall multiplication facts",
+			"Use related division facts"
+		],
+		videoId: "eW2dRLyoyds",
+		videoTitle: "Multiplication for Kids · Homeschool Pop"
+	},
+	{
+		id: "y3-groups",
+		strand: "Number",
+		title: "Multiplying, Grouping & Sharing",
+		focus: "Use facts to solve problems",
+		summary: "Use known facts to solve multiplication and division problems, including equal grouping and sharing.",
+		outcomes: [
+			"Solve problems such as 2 × 23",
+			"Solve division such as 24 ÷ 3",
+			"Model equal groups and equal sharing"
+		],
+		videoId: "fPDSp5HElZw",
+		videoTitle: "Equal Groups · Improving Maths",
+		videoId2: "fgoUVDoHx5M",
+		videoTitle2: "How to Share Equally · Learningvids4kids"
+	},
+	{
+		id: "y3-add-sub",
+		strand: "Number",
+		title: "Addition & Subtraction to 1,000",
+		focus: "Single-step • multi-step",
+		summary: "Solve single-step and multi-step addition and subtraction problems with totals up to 1,000.",
+		outcomes: [
+			"Add within 1,000",
+			"Subtract within 1,000",
+			"Solve two-step number problems"
+		],
+		videoId: "7J1OkxuyLD0",
+		videoTitle: "Addition & Subtraction · Scratch Garden"
+	},
+	{
+		id: "y3-rounding",
+		strand: "Number",
+		title: "Rounding & Estimation",
+		focus: "Predict • calculate • check",
+		summary: "Round numbers and estimate to predict and check whether calculated answers are reasonable.",
+		outcomes: [
+			"Round to the nearest 10",
+			"Round to the nearest 100",
+			"Use estimates to check answers"
+		],
+		videoId: "pNfz-JU2cKE",
+		videoTitle: "Rounding Numbers · NUMBEROCK"
+	},
+	{
+		id: "y3-fraction-represent",
+		strand: "Number",
+		title: "Represent Fractions",
+		focus: "Groups • number lines • counting",
+		summary: "Read, write and represent fractions of groups and on number lines, then count in fractions up to one whole.",
+		outcomes: [
+			"Write fractions of groups",
+			"Place fractions on a number line",
+			"Count in fractions with one denominator"
+		],
+		videoId: "SZaXtOHNh6s",
+		videoTitle: "Fractions on a Number Line · NUMBEROCK"
+	},
+	{
+		id: "y3-fraction-compare",
+		strand: "Number",
+		title: "Compare Unit Fractions",
+		focus: "Denominators up to 12",
+		summary: "Compare unit fractions with denominators up to 12 and explain which fraction is greater.",
+		outcomes: [
+			"Recognise unit fractions",
+			"Compare denominators up to 12",
+			"Use <, > and = with fractions"
+		],
+		videoId: "SZaXtOHNh6s",
+		videoTitle: "Fractions on a Number Line · NUMBEROCK"
+	},
+	{
+		id: "y3-fraction-add",
+		strand: "Number",
+		title: "Add & Subtract Fractions",
+		focus: "Same denominator • within one whole",
+		summary: "Add and subtract fractions that have the same denominator without going beyond one whole.",
+		outcomes: [
+			"Add fractions with the same denominator",
+			"Subtract fractions with the same denominator",
+			"Keep the denominator unchanged"
+		],
+		videoId: "5juto2ze8Lg",
+		videoTitle: "Adding & Subtracting Fractions · Math Antics"
+	},
+	{
+		id: "y3-money",
+		strand: "Number",
+		title: "New Zealand Money & Change",
+		focus: "Dollars • cents • change",
+		summary: "Represent dollars and cents without decimal notation, add prices and calculate change in New Zealand money.",
+		outcomes: [
+			"Write amounts as dollars and cents",
+			"Add New Zealand money amounts",
+			"Calculate change from a payment"
+		],
+		videoId: "DbYbIB4m3RM",
+		videoStart: 533,
+		videoTitle: "Dollars and Cents · Math Antics"
+	},
+	{
+		id: "y3-equality",
+		strand: "Algebra",
+		title: "Equality & Missing Numbers",
+		focus: "Unknowns • true or false",
+		summary: "Use the equals sign correctly, find missing numbers and decide whether equations are true or false.",
+		outcomes: [
+			"Find an unknown value",
+			"Understand both sides must be equal",
+			"Test whether an equation is true"
+		],
+		videoId: "7J1OkxuyLD0",
+		videoStart: 310,
+		videoTitle: "Equations · Scratch Garden"
+	},
+	{
+		id: "y3-repeat-pattern",
+		strand: "Algebra",
+		title: "Repeating Patterns",
+		focus: "Identify • create • continue",
+		summary: "Identify, create and continue repeating patterns using objects, colours, sounds and symbols.",
+		outcomes: [
+			"Find the repeating unit",
+			"Continue a repeating pattern",
+			"Create a repeating pattern"
+		],
+		videoId: COMPILATION,
+		videoStart: 2431,
+		videoTitle: "Patterns · Scratch Garden"
+	},
+	{
+		id: "y3-growing-pattern",
+		strand: "Algebra",
+		title: "Growing Patterns",
+		focus: "Numbers • shapes • change",
+		summary: "Identify, create and continue patterns that grow by a consistent amount or action.",
+		outcomes: [
+			"Recognise how a pattern grows",
+			"Continue number and shape patterns",
+			"Find missing pattern elements"
+		],
+		videoId: COMPILATION,
+		videoStart: 2431,
+		videoTitle: "Patterns · Scratch Garden"
+	},
+	{
+		id: "y3-pattern-rules",
+		strand: "Algebra",
+		title: "Pattern Rules",
+		focus: "Describe • apply • explain",
+		summary: "Describe pattern rules such as alternating colours or adding the same amount each time.",
+		outcomes: [
+			"State a pattern rule",
+			"Use a rule to find later terms",
+			"Match a pattern to its rule"
+		],
+		videoId: COMPILATION,
+		videoStart: 2431,
+		videoTitle: "Patterns · Scratch Garden"
+	},
+	{
+		id: "y3-metric",
+		strand: "Measurement",
+		title: "Metric Measurement",
+		focus: "cm • m • g • kg • ml • l",
+		summary: "Estimate and measure length, mass and capacity with metric units and suitable tools.",
+		outcomes: [
+			"Choose a suitable metric unit",
+			"Use rulers, jugs and scales",
+			"Estimate before measuring"
+		],
+		videoId: "iz7Ux7kq1Ho",
+		videoTitle: "Measuring Length: Centimetres and Other Units · Kids Academy",
+		videoId2: "XvLL27VqFbo",
+		videoTitle2: "Capacity and Volume with Nonstandard Units · BuzzWithBee"
+	},
+	{
+		id: "y3-compare-measure",
+		strand: "Measurement",
+		title: "Compare Size & Weight",
+		focus: "Compare • order • explain",
+		summary: "Compare and order objects according to measurable size, length, capacity and weight.",
+		outcomes: [
+			"Compare measurements in the same unit",
+			"Order objects by size or weight",
+			"Use heavier, lighter, longer and shorter"
+		],
+		videoId: "iz7Ux7kq1Ho",
+		videoTitle: "Compare Lengths by Measuring · Kids Academy",
+		videoId2: "2wUsdsae0ro",
+		videoStart: 145,
+		videoTitle2: "Compare Mass and Capacity · Scratch Garden"
+	},
+	{
+		id: "y3-perimeter",
+		strand: "Measurement",
+		title: "Perimeter",
+		focus: "Measure around a boundary",
+		summary: "Find the perimeter of a shape by walking or measuring all the way around its boundary.",
+		outcomes: [
+			"Identify a shape's boundary",
+			"Add side lengths",
+			"Find the perimeter of rectangles"
+		],
+		videoId: "slzAm1tTV5A",
+		videoTitle: "Area and Perimeter · iKen"
+	},
+	{
+		id: "y3-area",
+		strand: "Measurement",
+		title: "Area with Squares",
+		focus: "Cover • count • square units",
+		summary: "Measure the area of simple shapes by covering and counting equal-sized squares.",
+		outcomes: [
+			"Understand area covers a surface",
+			"Count square units",
+			"Find the area of simple rectangles"
+		],
+		videoId: "slzAm1tTV5A",
+		videoTitle: "Area and Perimeter · iKen"
+	},
+	{
+		id: "y3-event-duration",
+		strand: "Measurement",
+		title: "Duration of Events",
+		focus: "Years to seconds",
+		summary: "Identify how long events last using years, months, weeks, days, hours, minutes and seconds.",
+		outcomes: [
+			"Choose a sensible duration unit",
+			"Estimate how long events last",
+			"Order events by duration"
+		],
+		videoId: "m7sMMY43Mik",
+		videoTitle: "Time Units and Duration · Math Tools"
+	},
+	{
+		id: "y3-clock",
+		strand: "Measurement",
+		title: "Analogue & Digital Time",
+		focus: "Nearest 5 minutes • nearest minute",
+		summary: "Tell analogue and digital time using minutes past and minutes to the hour.",
+		outcomes: [
+			"Read times to the nearest 5 minutes",
+			"Read times to the nearest minute",
+			"Use minutes past and minutes to"
+		],
+		videoId: "d6FJx3va9bQ",
+		videoTitle: "Telling Time: O'clock, Half Past and Quarters · Janine Williams",
+		videoId2: "Pxr0dySHsgU",
+		videoTitle2: "Telling Time to the Nearest 5 Minutes · eSpark"
+	},
+	{
+		id: "y3-time-units",
+		strand: "Measurement",
+		title: "Compare Units of Time",
+		focus: "Convert • compare • explain",
+		summary: "Describe relationships between units of time and compare durations from seconds to years.",
+		outcomes: [
+			"Know key time-unit relationships",
+			"Compare durations in different units",
+			"Explain why a unit is suitable"
+		],
+		videoId: "m7sMMY43Mik",
+		videoTitle: "Time Units and Duration · Math Tools"
+	},
+	{
+		id: "y3-polygons",
+		strand: "Geometry",
+		title: "Regular Shapes to 10 Sides",
+		focus: "Triangles to decagons",
+		summary: "Find and describe regular two-dimensional shapes with up to 10 sides.",
+		outcomes: [
+			"Name polygons with 3 to 10 sides",
+			"Count sides and corners",
+			"Recognise regular shapes"
+		],
+		videoId: "zI3rUMrRLF8",
+		videoTitle: "Polygons · NUMBEROCK"
+	},
+	{
+		id: "y3-sort-shapes",
+		strand: "Geometry",
+		title: "Sort Shapes by Features",
+		focus: "Sides • corners • faces",
+		summary: "Compare and sort 2D and 3D shapes according to their mathematical features.",
+		outcomes: [
+			"Sort by number of sides or corners",
+			"Describe faces, edges and vertices",
+			"Explain a sorting rule"
+		],
+		videoId: "CYVmmTaqIPU",
+		videoTitle: "Faces, Edges and Vertices · Noodle Kidz"
+	},
+	{
+		id: "y3-symmetry",
+		strand: "Geometry",
+		title: "Lines of Symmetry",
+		focus: "Reflect • complete • create",
+		summary: "Recognise lines of symmetry and complete or create symmetrical pictures and patterns.",
+		outcomes: [
+			"Identify symmetrical designs",
+			"Find a line of symmetry",
+			"Complete a reflected pattern"
+		],
+		videoId: "SJlhywRfvh8",
+		videoTitle: "Symmetry Land · NUMBEROCK"
+	},
+	{
+		id: "y3-directions",
+		strand: "Geometry",
+		title: "Movement & Turns",
+		focus: "Steps • distance • quarter and half turns",
+		summary: "Follow and give step-by-step movement instructions using distance and quarter or half turns.",
+		outcomes: [
+			"Follow ordered directions",
+			"Use half and quarter turns",
+			"Include how far to move"
+		],
+		videoId: COMPILATION,
+		videoStart: 3344,
+		videoTitle: "Location & Directions · Scratch Garden"
+	},
+	{
+		id: "y3-maps",
+		strand: "Geometry",
+		title: "Simple Maps & Location",
+		focus: "North • south • east • west",
+		summary: "Use simple maps and positional language to describe where places are in relation to one another.",
+		outcomes: [
+			"Read a simple grid map",
+			"Use compass directions",
+			"Describe relative location"
+		],
+		videoId: COMPILATION,
+		videoStart: 3344,
+		videoTitle: "Maps and Location · Scratch Garden"
+	},
+	{
+		id: "y3-data-collect",
+		strand: "Statistics",
+		title: "Ask, Collect & Organise Data",
+		focus: "Questions • surveys • categories",
+		summary: "Ask statistical questions, collect information and organise responses into useful categories.",
+		outcomes: [
+			"Ask a question with varied answers",
+			"Collect survey responses",
+			"Organise data into categories"
+		],
+		videoId: "yZJR2MzkBrU",
+		videoTitle: "Bar Graphs & Picture Graphs · NUMBEROCK"
+	},
+	{
+		id: "y3-data-present",
+		strand: "Statistics",
+		title: "Present Data",
+		focus: "Tallies • tables • picture, dot and bar graphs",
+		summary: "Present collected information using tallies, tables, picture graphs, dot plots and bar graphs.",
+		outcomes: [
+			"Choose a suitable display",
+			"Read graph scales and labels",
+			"Represent data accurately"
+		],
+		videoId: "yZJR2MzkBrU",
+		videoTitle: "Bar Graphs & Picture Graphs · NUMBEROCK"
+	},
+	{
+		id: "y3-data-answer",
+		strand: "Statistics",
+		title: "Answer Questions with Data",
+		focus: "Compare • total • conclude",
+		summary: "Answer questions about collected data and describe what the information shows.",
+		outcomes: [
+			"Find common and uncommon results",
+			"Compare categories",
+			"Make a conclusion supported by data"
+		],
+		videoId: "yZJR2MzkBrU",
+		videoTitle: "Bar Graphs & Picture Graphs · NUMBEROCK"
+	}
+];
+function hashText(text) {
+	let h = 2166136261;
+	for (let i = 0; i < text.length; i++) {
+		h ^= text.charCodeAt(i);
+		h = Math.imul(h, 16777619);
+	}
+	return h >>> 0;
+}
+function rng(seed) {
+	return () => {
+		seed += 1831565813;
+		let t = seed;
+		t = Math.imul(t ^ t >>> 15, t | 1);
+		t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+		return ((t ^ t >>> 14) >>> 0) / 4294967296;
+	};
+}
+function shuffled(items, random) {
+	return [...items].sort(() => random() - .5);
+}
+function numericChoices(correct, random, suffix = "") {
+	const values = new Set([correct]);
+	let guard = 0;
+	while (values.size < 4 && guard++ < 30) {
+		const jump = 1 + Math.floor(random() * Math.max(3, Math.min(10, Math.abs(correct) || 3)));
+		values.add(Math.max(0, correct + (random() > .5 ? jump : -jump)));
+	}
+	return shuffled([...values].map((v) => `${v}${suffix}`), random);
+}
+function q(prompt, answer, choices, hint, random) {
+	return {
+		prompt,
+		answer,
+		choices: shuffled([...new Set([answer, ...choices])].slice(0, 4), random),
+		hint
+	};
+}
+function maoriNumber(n) {
+	const ones = [
+		"kore",
+		"tahi",
+		"rua",
+		"toru",
+		"whā",
+		"rima",
+		"ono",
+		"whitu",
+		"waru",
+		"iwa"
+	];
+	if (n < 10) return ones[n];
+	if (n === 10) return "tekau";
+	if (n === 100) return "kotahi rau";
+	const tens = Math.floor(n / 10), one = n % 10;
+	const lead = tens === 1 ? "tekau" : `${ones[tens]} tekau`;
+	return one ? `${lead} mā ${ones[one]}` : lead;
+}
+function makeQuestions(topic, setIndex) {
+	const random = rng(hashText(`${topic.id}-${setIndex}`));
+	const pick = (xs) => xs[Math.floor(random() * xs.length)];
+	const out = [];
+	const shapes = [
+		{
+			n: "triangle",
+			f: "3 sides"
+		},
+		{
+			n: "square",
+			f: "4 equal sides"
+		},
+		{
+			n: "pentagon",
+			f: "5 sides"
+		},
+		{
+			n: "hexagon",
+			f: "6 sides"
+		},
+		{
+			n: "cube",
+			f: "6 square faces"
+		},
+		{
+			n: "cuboid",
+			f: "6 rectangular faces"
+		},
+		{
+			n: "cone",
+			f: "1 flat face and 1 curved surface"
+		},
+		{
+			n: "pyramid",
+			f: "triangular faces meeting at a vertex"
+		}
+	];
+	const months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December"
+	];
+	for (let i = 0; i < 20; i++) if (topic.id === "numbers-120") {
+		const n = 2 + Math.floor(random() * 117);
+		const mode = i % 4;
+		if (mode === 0) out.push(q(`What number comes after ${n}?`, `${n + 1}`, numericChoices(n + 1, random), "Count forward one.", random));
+		else if (mode === 1) out.push(q(`What number comes before ${n}?`, `${n - 1}`, numericChoices(n - 1, random), "Count backward one.", random));
+		else if (mode === 2) {
+			const m = Math.min(120, n + 1 + Math.floor(random() * 12));
+			out.push(q(`Which number is greater: ${n} or ${m}?`, `${m}`, [
+				`${n}`,
+				`${Math.max(0, n - 1)}`,
+				`${Math.min(120, m + 1)}`
+			], "The greater number is farther along the counting sequence.", random));
+		} else {
+			const a = Math.floor(random() * 100), b = Math.min(120, a + Math.floor(random() * 18) + 1);
+			out.push(q(`Put these in order from smallest to largest: ${b}, ${a}, ${Math.floor((a + b) / 2)}`, `${a}, ${Math.floor((a + b) / 2)}, ${b}`, [
+				`${b}, ${Math.floor((a + b) / 2)}, ${a}`,
+				`${a}, ${b}, ${Math.floor((a + b) / 2)}`,
+				`${Math.floor((a + b) / 2)}, ${a}, ${b}`
+			], "Start with the number closest to zero.", random));
+		}
+	} else if (topic.id === "skip-counting") {
+		const step = pick([
+			1,
+			2,
+			5,
+			10
+		]), start = Math.floor(random() * (121 - step * 3));
+		const seq = [
+			start,
+			start + step,
+			start + step * 2,
+			start + step * 3
+		];
+		const missing = 1 + Math.floor(random() * 2), answer = seq[missing];
+		out.push(q(`Fill the gap: ${seq.map((v, j) => j === missing ? "__" : v).join(", ")}`, `${answer}`, numericChoices(answer, random), `The pattern changes by ${step} each time.`, random));
+	} else if (topic.id === "te-reo-numbers") {
+		const n = 1 + Math.floor(random() * 100);
+		if (i % 2 === 0) out.push(q(`Which te reo Māori number means ${n}?`, maoriNumber(n), [
+			maoriNumber(Math.max(1, n - 1)),
+			maoriNumber(Math.min(100, n + 1)),
+			maoriNumber(Math.max(1, n - 10))
+		], "Listen for the tens and ones.", random));
+		else {
+			const ans = `${n}`;
+			out.push(q(`What number is “${maoriNumber(n)}”?`, ans, numericChoices(n, random), "Tekau means ten; mā joins the ones.", random));
+		}
+	} else if (topic.id === "place-value") {
+		const n = 10 + Math.floor(random() * 111), h = Math.floor(n / 100), t = Math.floor(n % 100 / 10), o = n % 10;
+		const answer = n >= 100 ? `${h} hundred, ${t} tens, ${o} ones` : `${t} tens and ${o} ones`;
+		out.push(q(`How is ${n} partitioned?`, answer, [
+			`${Math.max(0, t - 1)} tens and ${o + 10} ones`,
+			`${o} tens and ${t} ones`,
+			`${t + 1} tens and ${o} ones`
+		], "Read each digit by its place.", random));
+	} else if (topic.id === "number-line") {
+		const n = Math.floor(random() * 121);
+		if (i % 2 === 0) out.push(q(`Is ${n} odd or even?`, n % 2 ? "odd" : "even", [
+			n % 2 ? "even" : "odd",
+			"both",
+			"neither"
+		], "Even numbers can be shared into pairs with none left over.", random));
+		else {
+			const m = Math.floor(random() * 121), answer = n > m ? ">" : n < m ? "<" : "=";
+			out.push(q(`Choose the sign: ${n} __ ${m}`, answer, [
+				"<",
+				">",
+				"="
+			].filter((x) => x !== answer), "Imagine both numbers on a number line.", random));
+		}
+	} else if (topic.id === "add-sub") if (i % 2 === 0) {
+		const a = 10 + Math.floor(random() * 70), b = 1 + Math.floor(random() * Math.min(40, 120 - a));
+		const ans = a + b;
+		out.push(q(`${a} + ${b} = ?`, `${ans}`, numericChoices(ans, random), `Split ${b} into tens and ones.`, random));
+	} else {
+		const a = 20 + Math.floor(random() * 101), b = 1 + Math.floor(random() * Math.min(50, a));
+		const ans = a - b;
+		out.push(q(`${a} − ${b} = ?`, `${ans}`, numericChoices(ans, random), `Subtract the tens, then the ones.`, random));
+	}
+	else if (topic.id === "facts-doubles") if (i % 2 === 0) {
+		const n = 1 + Math.floor(random() * 10), ans = n * 2;
+		out.push(q(`Double ${n} is…`, `${ans}`, numericChoices(ans, random), `Add ${n} to itself.`, random));
+	} else {
+		const n = 2 * (1 + Math.floor(random() * 10)), ans = n / 2;
+		out.push(q(`Half of ${n} is…`, `${ans}`, numericChoices(ans, random), "Share the number into two equal groups.", random));
+	}
+	else if (topic.id === "groups-sharing") {
+		const size = pick([
+			2,
+			5,
+			10
+		]), groups = 1 + Math.floor(random() * 8), total = size * groups;
+		if (i % 2 === 0) out.push(q(`${groups} equal groups of ${size} make…`, `${total}`, numericChoices(total, random), `Skip count by ${size}, ${groups} times.`, random));
+		else out.push(q(`${total} objects are shared into ${groups} equal groups. How many in each group?`, `${size}`, numericChoices(size, random), "Each group must have the same amount.", random));
+	} else if (topic.id === "fractions") {
+		const den = pick([
+			2,
+			3,
+			4
+		]), unit = 1 + Math.floor(random() * 5), total = den * unit, word = den === 2 ? "half" : den === 3 ? "third" : "quarter";
+		out.push(q(`What is one ${word} of ${total}?`, `${unit}`, numericChoices(unit, random), `Share ${total} into ${den} equal groups.`, random));
+	} else if (topic.id === "money") {
+		const values = [
+			10,
+			20,
+			50,
+			100,
+			200,
+			500,
+			1e3,
+			2e3
+		], a = pick(values), b = pick(values.filter((v) => v + a <= 2e3)), total = a + b;
+		const fmt = (v) => v < 100 ? `${v}c` : `$${Number.isInteger(v / 100) ? v / 100 : (v / 100).toFixed(2)}`;
+		if (i % 4 === 0) out.push(q(`${fmt(a)} + ${fmt(b)} = ?`, fmt(total), [
+			fmt(Math.max(10, total - 10)),
+			fmt(Math.min(2e3, total + 10)),
+			fmt(Math.max(10, total - a))
+		], "Put both amounts into cents or dollars, then add.", random));
+		else if (i % 4 === 1) {
+			const cents = pick([
+				100,
+				200,
+				300,
+				500,
+				1e3,
+				2e3
+			]);
+			out.push(q(`${cents} cents is the same as…`, fmt(cents), [
+				fmt(Math.max(10, cents - 100)),
+				fmt(Math.min(2e3, cents + 100)),
+				`${cents} dollars`
+			], "Every 100 cents makes 1 dollar.", random));
+		} else if (i % 4 === 2) {
+			if (a === b) {
+				i--;
+				continue;
+			}
+			const larger = Math.max(a, b), smaller = Math.min(a, b);
+			out.push(q(`Which amount is greater: ${fmt(a)} or ${fmt(b)}?`, fmt(larger), [
+				fmt(smaller),
+				fmt(Math.min(2e3, larger + 10)),
+				"They are equal"
+			], "Compare both amounts using the same unit.", random));
+		} else {
+			const target = pick([
+				50,
+				100,
+				200,
+				500,
+				1e3,
+				2e3
+			]);
+			out.push(q(`Which group makes ${fmt(target)}?`, {
+				50: "20c + 20c + 10c",
+				100: "50c + 50c",
+				200: "$1 + $1",
+				500: "$2 + $2 + $1",
+				1e3: "$5 + $5",
+				2e3: "$10 + $10"
+			}[target], [
+				`${fmt(target)} + 10c`,
+				fmt(Math.max(10, target - 10)),
+				`${fmt(target)} + ${fmt(target)}`
+			], "Add the value of every New Zealand coin or note in the group.", random));
+		}
+	} else if (topic.id === "equations") {
+		const a = 1 + Math.floor(random() * 15), b = 1 + Math.floor(random() * 10), c = 1 + Math.floor(random() * 15), ans = a + b - c;
+		if (ans >= 0 && ans <= 20) out.push(q(`${a} + ${b} = ${c} + __`, `${ans}`, numericChoices(ans, random), "Both sides of the equals sign must have the same value.", random));
+		else {
+			i--;
+			continue;
+		}
+	} else if (topic.id === "patterns") {
+		const pat = pick([
+			[
+				"red",
+				"blue",
+				"green"
+			],
+			[
+				"circle",
+				"square",
+				"triangle"
+			],
+			[
+				"clap",
+				"stomp",
+				"jump"
+			],
+			[
+				"1",
+				"2",
+				"3"
+			]
+		]), offset = Math.floor(random() * 3), seq = Array.from({ length: 6 }, (_, j) => pat[(j + offset) % 3]), ans = pat[(6 + offset) % 3];
+		out.push(q(`What comes next? ${seq.join(", ")}, __`, ans, pat.filter((x) => x !== ans).concat(["stop"]), "Find the part that repeats.", random));
+	} else if (topic.id === "length") {
+		const a = 3 + Math.floor(random() * 10), b = 3 + Math.floor(random() * 10);
+		if (a === b) {
+			i--;
+			continue;
+		}
+		out.push(q(`A pencil is ${a} paper clips long. A crayon is ${b} paper clips long. Which is longer?`, a > b ? "the pencil" : "the crayon", [
+			a > b ? "the crayon" : "the pencil",
+			"they are equal",
+			"we cannot compare"
+		], "Both objects were measured with the same unit.", random));
+	} else if (topic.id === "mass-capacity") {
+		const a = 1 + Math.floor(random() * 10), b = 1 + Math.floor(random() * 10);
+		if (a === b) {
+			i--;
+			continue;
+		}
+		const capacity = i % 2 === 0;
+		out.push(q(capacity ? `Bottle A holds ${a} cups. Bottle B holds ${b} cups. Which holds more?` : `Object A balances ${a} blocks. Object B balances ${b} blocks. Which is heavier?`, a > b ? "A" : "B", [
+			a > b ? "B" : "A",
+			"They are equal",
+			"Not enough information"
+		], "The greater count shows more capacity or mass when the units are equal.", random));
+	} else if (topic.id === "turns") {
+		const dirs = [
+			"north",
+			"east",
+			"south",
+			"west"
+		], start = Math.floor(random() * 4), quarters = pick([
+			1,
+			2,
+			3,
+			4
+		]), clockwise = random() > .5, finish = (start + (clockwise ? quarters : -quarters) + 8) % 4;
+		const turn = quarters === 1 ? "a quarter" : quarters === 2 ? "a half" : quarters === 3 ? "a three-quarter" : "a full";
+		out.push(q(`Face ${dirs[start]}. Make ${turn} turn ${clockwise ? "clockwise" : "anti-clockwise"}. Which way are you facing?`, dirs[finish], dirs.filter((d) => d !== dirs[finish]), "A quarter turn moves to the next direction; a half turn faces the opposite way.", random));
+	} else if (topic.id === "calendar") {
+		const m = Math.floor(random() * 12);
+		if (i % 2 === 0) out.push(q(`Which month comes after ${months[m]}?`, months[(m + 1) % 12], months.filter((x) => x !== months[(m + 1) % 12]).slice(0, 3), "Move one step forward through the months.", random));
+		else {
+			const season = pick([
+				["summer", "December"],
+				["autumn", "March"],
+				["winter", "June"],
+				["spring", "September"]
+			]);
+			out.push(q(`In Aotearoa New Zealand, which month begins ${season[0]}?`, season[1], months.filter((x) => x !== season[1]).sort(() => random() - .5).slice(0, 3), "New Zealand is in the Southern Hemisphere.", random));
+		}
+	} else if (topic.id === "clock") {
+		const hour = 1 + Math.floor(random() * 12), minute = pick([
+			0,
+			15,
+			30,
+			45
+		]), next = hour === 12 ? 1 : hour + 1;
+		const wording = minute === 0 ? `${hour} o'clock` : minute === 15 ? `quarter past ${hour}` : minute === 30 ? `half past ${hour}` : `quarter to ${next}`;
+		const answer = `${hour}:${String(minute).padStart(2, "0")}`;
+		out.push(q(`Which digital time means “${wording}”?`, answer, [
+			`${next}:${String(minute).padStart(2, "0")}`,
+			`${hour}:${String((minute + 15) % 60).padStart(2, "0")}`,
+			`${next}:${String((60 - minute) % 60).padStart(2, "0")}`
+		], "Past uses the current hour; quarter to points to the next hour.", random));
+	} else if (topic.id === "shapes") {
+		const item = pick(shapes);
+		out.push(q(`Which shape has ${item.f}?`, item.n, shapes.filter((s) => s.n !== item.n).sort(() => random() - .5).slice(0, 3).map((s) => s.n), "Use the shape's features, not only its appearance.", random));
+	} else if (topic.id === "shape-moves") {
+		const moves = [
+			"slide",
+			"quarter turn",
+			"half turn"
+		], pat = [pick(moves), pick(moves)];
+		if (pat[0] === pat[1]) pat[1] = moves[(moves.indexOf(pat[0]) + 1) % 3];
+		const ans = pat[i % 2];
+		out.push(q(`Continue the movement pattern: ${pat[0]}, ${pat[1]}, ${pat[0]}, ${pat[1]}, __`, ans, moves.filter((x) => x !== ans).concat(["full stop"]), "The two movements repeat in the same order.", random));
+	} else if (topic.id === "position") {
+		const dirs = [
+			"left",
+			"right",
+			"forward",
+			"backward"
+		], first = pick(dirs), second = pick(dirs);
+		out.push(q(`A learner moves ${first}, then ${second}. Which instruction did they follow first?`, first, dirs.filter((d) => d !== first), "Read movement instructions in order.", random));
+	} else if (topic.id === "collect-data") {
+		const total = 1 + Math.floor(random() * 12);
+		if (i % 2 === 0) out.push(q(`A tally chart shows ${"||||/ ".repeat(Math.floor(total / 5))}${"|".repeat(total % 5)}. What is the total?`, `${total}`, numericChoices(total, random), "Count each crossed bundle as five, then add the extra marks.", random));
+		else out.push(q("Which question would collect useful data about favourite fruit?", "What is your favourite fruit?", [
+			"Do you like things?",
+			"How old is the fruit?",
+			"What day is today?"
+		], "A statistical question should allow different answers that can be grouped.", random));
+	} else {
+		const cats = 2 + Math.floor(random() * 8), dogs = 1 + Math.floor(random() * 7), fish = 1 + Math.floor(random() * 5), mode = i % 3;
+		if (mode === 0) {
+			const answer = Object.entries({
+				cats,
+				dogs,
+				fish
+			}).sort((a, b) => b[1] - a[1])[0][0];
+			out.push(q(`Survey results — cats: ${cats}, dogs: ${dogs}, fish: ${fish}. Which is most common?`, answer, [
+				"cats",
+				"dogs",
+				"fish"
+			].filter((x) => x !== answer), "Compare the three counts and choose the greatest.", random));
+		} else if (mode === 1) {
+			const ans = Math.abs(cats - dogs);
+			out.push(q(`Cats: ${cats}. Dogs: ${dogs}. How many more are in the larger group?`, `${ans}`, numericChoices(ans, random), "Subtract the smaller count from the larger count.", random));
+		} else {
+			const ans = cats + dogs + fish;
+			out.push(q(`Cats: ${cats}, dogs: ${dogs}, fish: ${fish}. How many responses altogether?`, `${ans}`, numericChoices(ans, random), "Add every category to find the total.", random));
+		}
+	}
+	return out;
+}
+function makeYear3Questions(topic, setIndex) {
+	const random = rng(hashText(`${topic.id}-${setIndex}`));
+	const pick = (xs) => xs[Math.floor(random() * xs.length)];
+	const out = [];
+	const fraction = (n, d) => `${n}/${d}`;
+	const polygons = {
+		3: "triangle",
+		4: "quadrilateral",
+		5: "pentagon",
+		6: "hexagon",
+		7: "heptagon",
+		8: "octagon",
+		9: "nonagon",
+		10: "decagon"
+	};
+	for (let i = 0; i < 20; i++) if (topic.id === "y3-numbers-1000") {
+		const n = 100 + Math.floor(random() * 900), h = Math.floor(n / 100), t = Math.floor(n % 100 / 10), o = n % 10;
+		if (i % 3 === 0) out.push(q(`How is ${n} partitioned?`, `${h} hundreds, ${t} tens and ${o} ones`, [
+			`${h} tens, ${t} hundreds and ${o} ones`,
+			`${h} hundreds, ${o} tens and ${t} ones`,
+			`${n} tens`
+		], "Read each digit by its place.", random));
+		else if (i % 3 === 1) {
+			const m = 100 + Math.floor(random() * 900);
+			if (n === m) {
+				i--;
+				continue;
+			}
+			out.push(q(`Which number is greater: ${n} or ${m}?`, `${Math.max(n, m)}`, [
+				`${Math.min(n, m)}`,
+				`${Math.max(n, m) - 1}`,
+				`${Math.min(n, m) + 1}`
+			], "Compare the hundreds first, then tens, then ones.", random));
+		} else out.push(q(`What number is 10 more than ${n}?`, `${Math.min(1e3, n + 10)}`, numericChoices(Math.min(1e3, n + 10), random), "Increase the tens place by one.", random));
+	} else if (topic.id === "y3-facts") {
+		const factor = pick([
+			2,
+			3,
+			4,
+			5,
+			8,
+			10
+		]), other = 1 + Math.floor(random() * 10), product = factor * other;
+		if (i % 2 === 0) out.push(q(`${factor} × ${other} = ?`, `${product}`, numericChoices(product, random), `Skip count by ${factor}, ${other} times.`, random));
+		else out.push(q(`${product} ÷ ${factor} = ?`, `${other}`, numericChoices(other, random), `Use the related fact ${factor} × ${other} = ${product}.`, random));
+	} else if (topic.id === "y3-groups") {
+		const groups = pick([
+			2,
+			3,
+			4,
+			5,
+			8,
+			10
+		]), size = 2 + Math.floor(random() * 24), total = groups * size;
+		if (i % 2 === 0) out.push(q(`${groups} bags hold ${size} apples each. How many apples altogether?`, `${total}`, numericChoices(total, random), `Multiply ${groups} by ${size}.`, random));
+		else out.push(q(`${total} counters are shared equally among ${groups} children. How many does each child get?`, `${size}`, numericChoices(size, random), "Equal sharing is division.", random));
+	} else if (topic.id === "y3-add-sub") if (i % 3 === 2) {
+		const a = 50 + Math.floor(random() * 400), b = 10 + Math.floor(random() * 200), c = 10 + Math.floor(random() * Math.min(200, a + b)), ans = a + b - c;
+		out.push(q(`A learner had ${a} points, earned ${b}, then spent ${c}. How many points remain?`, `${ans}`, numericChoices(ans, random), "Add first, then subtract.", random));
+	} else if (i % 2 === 0) {
+		const a = 100 + Math.floor(random() * 700), b = 1 + Math.floor(random() * (1e3 - a)), ans = a + b;
+		out.push(q(`${a} + ${b} = ?`, `${ans}`, numericChoices(ans, random), "Add hundreds, tens and ones.", random));
+	} else {
+		const a = 200 + Math.floor(random() * 801), b = 10 + Math.floor(random() * (a - 10)), ans = a - b;
+		out.push(q(`${a} − ${b} = ?`, `${ans}`, numericChoices(ans, random), "Subtract by place value and check with addition.", random));
+	}
+	else if (topic.id === "y3-rounding") {
+		const n = 10 + Math.floor(random() * 981), base = i % 2 === 0 ? 10 : 100, ans = Math.round(n / base) * base;
+		out.push(q(`Round ${n} to the nearest ${base}.`, `${ans}`, numericChoices(ans, random), `Look at the digit to the right of the ${base === 10 ? "tens" : "hundreds"} place: 5 or more rounds up.`, random));
+	} else if (topic.id === "y3-fraction-represent") {
+		const d = pick([
+			2,
+			3,
+			4,
+			5,
+			6,
+			8,
+			10,
+			12
+		]), n = 1 + Math.floor(random() * (d - 1));
+		out.push(q(`${n} of ${d} equal parts are selected. Which fraction is selected?`, fraction(n, d), [
+			fraction(d, n),
+			fraction(Math.max(1, n - 1), d),
+			fraction(Math.min(d, n + 1), d)
+		], "The numerator counts selected parts; the denominator counts all equal parts.", random));
+	} else if (topic.id === "y3-fraction-compare") {
+		const a = pick([
+			2,
+			3,
+			4,
+			5,
+			6,
+			8,
+			10,
+			12
+		]), b = pick([
+			2,
+			3,
+			4,
+			5,
+			6,
+			8,
+			10,
+			12
+		].filter((x) => x !== a)), answer = a < b ? fraction(1, a) : fraction(1, b);
+		out.push(q(`Which unit fraction is greater: ${fraction(1, a)} or ${fraction(1, b)}?`, answer, [
+			answer === fraction(1, a) ? fraction(1, b) : fraction(1, a),
+			"They are equal",
+			fraction(1, 12)
+		], "For unit fractions, fewer equal pieces means each piece is larger.", random));
+	} else if (topic.id === "y3-fraction-add") {
+		const d = pick([
+			3,
+			4,
+			5,
+			6,
+			8,
+			10,
+			12
+		]), a = 1 + Math.floor(random() * (d - 1));
+		if (i % 2 === 0) {
+			const b = 1 + Math.floor(random() * (d - a)), ans = a + b;
+			out.push(q(`${fraction(a, d)} + ${fraction(b, d)} = ?`, fraction(ans, d), [
+				fraction(ans, d + 1),
+				fraction(Math.max(1, ans - 1), d),
+				fraction(Math.min(d, ans + 1), d)
+			], "Add the numerators and keep the same denominator.", random));
+		} else {
+			const b = 1 + Math.floor(random() * a), ans = a - b;
+			out.push(q(`${fraction(a, d)} − ${fraction(b, d)} = ?`, fraction(ans, d), [
+				fraction(Math.max(0, ans - 1), d),
+				fraction(Math.min(d, ans + 1), d),
+				fraction(ans, d + 1)
+			], "Subtract the numerators and keep the same denominator.", random));
+		}
+	} else if (topic.id === "y3-money") {
+		const price = pick([
+			50,
+			120,
+			180,
+			250,
+			340,
+			460,
+			550,
+			720,
+			850,
+			1250,
+			1470
+		]), payment = pick([
+			500,
+			1e3,
+			2e3
+		].filter((x) => x >= price)), fmt = (v) => v < 100 ? `${v} cents` : `$${Math.floor(v / 100)} and ${v % 100} cents`;
+		if (i % 2 === 0) out.push(q(`An item costs ${fmt(price)}. A learner pays ${fmt(payment)}. What change should they receive?`, fmt(payment - price), [
+			fmt(Math.max(0, payment - price - 50)),
+			fmt(payment - price + 50),
+			fmt(price)
+		], "Change equals the payment minus the price.", random));
+		else {
+			const second = pick([
+				20,
+				50,
+				100,
+				200,
+				350
+			]), total = price + second;
+			out.push(q(`${fmt(price)} + ${fmt(second)} = ?`, fmt(total), [
+				fmt(Math.max(0, total - 50)),
+				fmt(total + 50),
+				fmt(price)
+			], "Add cents to cents and dollars to dollars.", random));
+		}
+	} else if (topic.id === "y3-equality") {
+		const a = 50 + Math.floor(random() * 250), b = 10 + Math.floor(random() * 100), c = 20 + Math.floor(random() * 180), ans = a + b - c;
+		if (ans < 0) {
+			i--;
+			continue;
+		}
+		out.push(q(`${a} + ${b} = ${c} + □. What is □?`, `${ans}`, numericChoices(ans, random), "Both sides of the equals sign must have the same value.", random));
+	} else if (topic.id === "y3-repeat-pattern") {
+		const pat = pick([
+			[
+				"red",
+				"blue",
+				"green"
+			],
+			["circle", "square"],
+			[
+				"clap",
+				"stomp",
+				"stomp"
+			],
+			[
+				"A",
+				"B",
+				"C",
+				"C"
+			]
+		]), seq = Array.from({ length: 7 }, (_, j) => pat[j % pat.length]), ans = pat[7 % pat.length];
+		out.push(q(`What comes next? ${seq.join(", ")}, __`, ans, [...new Set(pat.filter((x) => x !== ans)), "stop"], "Find the shortest unit that repeats.", random));
+	} else if (topic.id === "y3-growing-pattern") {
+		const start = 1 + Math.floor(random() * 20), step = pick([
+			2,
+			3,
+			4,
+			5,
+			8,
+			10
+		]), seq = Array.from({ length: 5 }, (_, j) => start + j * step), ans = start + 5 * step;
+		out.push(q(`Continue the growing pattern: ${seq.join(", ")}, __`, `${ans}`, numericChoices(ans, random), `The rule is add ${step}.`, random));
+	} else if (topic.id === "y3-pattern-rules") {
+		const start = 1 + Math.floor(random() * 15), step = pick([
+			2,
+			3,
+			4,
+			5,
+			8,
+			10
+		]), seq = Array.from({ length: 4 }, (_, j) => start + j * step);
+		out.push(q(`What is the rule for ${seq.join(", ")}?`, `add ${step}`, [
+			`subtract ${step}`,
+			`add ${step + 1}`,
+			"alternate two colours"
+		], "Compare each term with the one before it.", random));
+	} else if (topic.id === "y3-metric") {
+		const item = pick([
+			{
+				thing: "the length of a pencil",
+				unit: "cm"
+			},
+			{
+				thing: "the length of a classroom",
+				unit: "m"
+			},
+			{
+				thing: "the mass of an apple",
+				unit: "g"
+			},
+			{
+				thing: "the mass of a child",
+				unit: "kg"
+			},
+			{
+				thing: "medicine in a spoon",
+				unit: "ml"
+			},
+			{
+				thing: "water in a large bottle",
+				unit: "l"
+			}
+		]);
+		out.push(q(`Which metric unit is best for measuring ${item.thing}?`, item.unit, shuffled([
+			"cm",
+			"m",
+			"g",
+			"kg",
+			"ml",
+			"l"
+		].filter((x) => x !== item.unit), random).slice(0, 3), "Choose a unit that matches what is measured and its likely size.", random));
+	} else if (topic.id === "y3-compare-measure") {
+		const unit = pick([
+			"cm",
+			"g",
+			"ml"
+		]), a = 10 + Math.floor(random() * 490), b = 10 + Math.floor(random() * 490);
+		if (a === b) {
+			i--;
+			continue;
+		}
+		out.push(q(`Object A measures ${a}${unit}. Object B measures ${b}${unit}. Which has the greater measurement?`, a > b ? "Object A" : "Object B", [
+			a > b ? "Object B" : "Object A",
+			"They are equal",
+			"The units are different"
+		], "The units match, so compare the numbers.", random));
+	} else if (topic.id === "y3-perimeter") {
+		const length = 2 + Math.floor(random() * 18), width = 2 + Math.floor(random() * 12), ans = 2 * (length + width);
+		out.push(q(`A rectangle is ${length} cm long and ${width} cm wide. What is its perimeter?`, `${ans} cm`, numericChoices(ans, random, " cm"), "Add all four sides: length + width + length + width.", random));
+	} else if (topic.id === "y3-area") {
+		const length = 2 + Math.floor(random() * 10), width = 2 + Math.floor(random() * 8), ans = length * width;
+		out.push(q(`A rectangle covers ${length} rows of ${width} equal squares. What is its area?`, `${ans} square units`, numericChoices(ans, random, " square units"), "Multiply rows by squares in each row.", random));
+	} else if (topic.id === "y3-event-duration") {
+		const item = pick([
+			{
+				event: "brushing your teeth",
+				unit: "minutes"
+			},
+			{
+				event: "a blink",
+				unit: "seconds"
+			},
+			{
+				event: "a school day",
+				unit: "hours"
+			},
+			{
+				event: "a holiday trip",
+				unit: "days"
+			},
+			{
+				event: "a school term",
+				unit: "weeks"
+			},
+			{
+				event: "growing from age 7 to age 8",
+				unit: "year"
+			}
+		]);
+		out.push(q(`Which unit best describes the duration of ${item.event}?`, item.unit, shuffled([
+			"seconds",
+			"minutes",
+			"hours",
+			"days",
+			"weeks",
+			"year"
+		].filter((x) => x !== item.unit), random).slice(0, 3), "Choose a unit that gives a sensible-sized number.", random));
+	} else if (topic.id === "y3-clock") {
+		const hour = 1 + Math.floor(random() * 12), minute = Math.floor(random() * 12) * 5, next = hour === 12 ? 1 : hour + 1, words = minute === 0 ? `${hour} o'clock` : minute <= 30 ? `${minute} minutes past ${hour}` : `${60 - minute} minutes to ${next}`;
+		out.push(q(`Which digital time matches “${words}”?`, `${hour}:${String(minute).padStart(2, "0")}`, [
+			`${next}:${String(minute).padStart(2, "0")}`,
+			`${hour}:${String((minute + 5) % 60).padStart(2, "0")}`,
+			`${next}:${String(60 - minute).padStart(2, "0")}`
+		], "Past uses the current hour; to counts toward the next hour.", random));
+	} else if (topic.id === "y3-time-units") {
+		const fact = pick([
+			{
+				p: "How many seconds are in 1 minute?",
+				a: 60
+			},
+			{
+				p: "How many minutes are in 1 hour?",
+				a: 60
+			},
+			{
+				p: "How many hours are in 1 day?",
+				a: 24
+			},
+			{
+				p: "How many days are in 1 week?",
+				a: 7
+			},
+			{
+				p: "How many months are in 1 year?",
+				a: 12
+			},
+			{
+				p: "How many years are in 1 decade?",
+				a: 10
+			}
+		]);
+		out.push(q(fact.p, `${fact.a}`, numericChoices(fact.a, random), "Think about the relationship between the two time units.", random));
+	} else if (topic.id === "y3-polygons") {
+		const sides = 3 + Math.floor(random() * 8);
+		out.push(q(`Which regular polygon has ${sides} sides?`, polygons[sides], Object.values(polygons).filter((x) => x !== polygons[sides]).sort(() => random() - .5).slice(0, 3), "A polygon's name tells how many straight sides it has.", random));
+	} else if (topic.id === "y3-sort-shapes") {
+		const fact = pick([
+			{
+				p: "Which shape has 6 square faces?",
+				a: "cube",
+				c: [
+					"cuboid",
+					"cone",
+					"pyramid"
+				]
+			},
+			{
+				p: "Which shape has 3 sides and 3 corners?",
+				a: "triangle",
+				c: [
+					"square",
+					"pentagon",
+					"circle"
+				]
+			},
+			{
+				p: "Which shape has one flat face and one curved surface?",
+				a: "cone",
+				c: [
+					"cube",
+					"sphere",
+					"pyramid"
+				]
+			},
+			{
+				p: "Which shape has 8 vertices?",
+				a: "cuboid",
+				c: [
+					"cone",
+					"sphere",
+					"triangle"
+				]
+			}
+		]);
+		out.push(q(fact.p, fact.a, fact.c, "Sort shapes by their mathematical features.", random));
+	} else if (topic.id === "y3-symmetry") {
+		const fact = pick([
+			{
+				p: "What does a line of symmetry do?",
+				a: "divides a shape into matching reflected halves",
+				c: [
+					"measures its perimeter",
+					"counts its corners",
+					"turns it into a circle"
+				]
+			},
+			{
+				p: "Which shape always has 4 lines of symmetry?",
+				a: "square",
+				c: [
+					"scalene triangle",
+					"parallelogram",
+					"uneven pentagon"
+				]
+			},
+			{
+				p: "If a design matches when folded on a line, the design is…",
+				a: "symmetrical",
+				c: [
+					"irregular",
+					"three-dimensional",
+					"measured"
+				]
+			}
+		]);
+		out.push(q(fact.p, fact.a, fact.c, "Imagine folding along the line: both halves should match exactly.", random));
+	} else if (topic.id === "y3-directions") {
+		const dirs = [
+			"north",
+			"east",
+			"south",
+			"west"
+		], start = Math.floor(random() * 4), turn = pick([
+			1,
+			2,
+			-1,
+			-2
+		]), finish = (start + turn + 4) % 4, words = Math.abs(turn) === 1 ? "a quarter turn" : "a half turn", way = turn > 0 ? "clockwise" : "anti-clockwise";
+		out.push(q(`Face ${dirs[start]}. Turn ${words} ${way}. Which way are you facing?`, dirs[finish], dirs.filter((x) => x !== dirs[finish]), "A quarter turn moves one compass direction; a half turn faces the opposite way.", random));
+	} else if (topic.id === "y3-maps") {
+		const fact = pick([
+			{
+				p: "The library is north of the playground. Where is the playground from the library?",
+				a: "south",
+				c: [
+					"north",
+					"east",
+					"west"
+				]
+			},
+			{
+				p: "The pool is east of the school. Where is the school from the pool?",
+				a: "west",
+				c: [
+					"east",
+					"north",
+					"south"
+				]
+			},
+			{
+				p: "A map key says ★ means playground. What does ★ show?",
+				a: "the playground",
+				c: [
+					"north",
+					"the map scale",
+					"a road"
+				]
+			}
+		]);
+		out.push(q(fact.p, fact.a, fact.c, "Use the map relationship or key exactly as described.", random));
+	} else if (topic.id === "y3-data-collect") {
+		const fact = pick([{
+			p: "Which is a useful statistical question?",
+			a: "What are the shoe sizes in our class?",
+			c: [
+				"Is 4 + 3 equal to 7?",
+				"What is my name?",
+				"Is this pencil blue?"
+			]
+		}, {
+			p: "Why do we organise survey answers into categories?",
+			a: "to compare and count similar responses",
+			c: [
+				"to change the answers",
+				"to remove every difference",
+				"to avoid collecting data"
+			]
+		}]);
+		out.push(q(fact.p, fact.a, fact.c, "A statistical question expects varied answers that can be collected and compared.", random));
+	} else if (topic.id === "y3-data-present") {
+		const total = 2 + Math.floor(random() * 24);
+		if (i % 2 === 0) out.push(q(`A tally shows ${"||||/ ".repeat(Math.floor(total / 5))}${"|".repeat(total % 5)}. What value should the graph show?`, `${total}`, numericChoices(total, random), "Each complete tally bundle represents five.", random));
+		else out.push(q("Which graph uses separate rectangular bars to compare categories?", "bar graph", [
+			"number line",
+			"clock face",
+			"shape pattern"
+		], "The height or length of each bar represents a category's count.", random));
+	} else {
+		const cats = 2 + Math.floor(random() * 14), dogs = 2 + Math.floor(random() * 14), birds = 1 + Math.floor(random() * 10);
+		if (i % 3 === 0) {
+			if (cats === dogs || cats === birds || dogs === birds) {
+				i--;
+				continue;
+			}
+			const answer = Object.entries({
+				cats,
+				dogs,
+				birds
+			}).sort((a, b) => b[1] - a[1])[0][0];
+			out.push(q(`Pet survey — cats: ${cats}, dogs: ${dogs}, birds: ${birds}. Which category is most common?`, answer, [
+				"cats",
+				"dogs",
+				"birds"
+			].filter((x) => x !== answer), "Choose the category with the greatest count.", random));
+		} else if (i % 3 === 1) {
+			const ans = cats + dogs + birds;
+			out.push(q(`Cats: ${cats}, dogs: ${dogs}, birds: ${birds}. How many responses altogether?`, `${ans}`, numericChoices(ans, random), "Add all categories.", random));
+		} else {
+			const ans = Math.abs(cats - dogs);
+			out.push(q(`Cats: ${cats}, dogs: ${dogs}. What is the difference between the categories?`, `${ans}`, numericChoices(ans, random), "Subtract the smaller count from the larger count.", random));
+		}
+	}
+	return out;
+}
+function MathsApp() {
+	const [year, setYear] = (0, import_react.useState)(2);
+	const [topicId, setTopicId] = (0, import_react.useState)(TOPICS[0].id);
+	const [strand, setStrand] = (0, import_react.useState)("Number");
+	const [progress, setProgress] = (0, import_react.useState)({});
+	const [quiz, setQuiz] = (0, import_react.useState)(null);
+	const [selected, setSelected] = (0, import_react.useState)(null);
+	const activeTopics = year === 2 ? TOPICS : YEAR3_TOPICS;
+	const topic = activeTopics.find((t) => t.id === topicId) || activeTopics[0];
+	const questions = (0, import_react.useMemo)(() => quiz ? year === 2 ? makeQuestions(topic, quiz.set) : makeYear3Questions(topic, quiz.set) : [], [
+		topic,
+		quiz?.set,
+		year
+	]);
+	(0, import_react.useEffect)(() => {
+		try {
+			const saved = localStorage.getItem(PROGRESS_KEY) || localStorage.getItem(LEGACY_PROGRESS_KEY);
+			if (saved) {
+				setProgress(JSON.parse(saved));
+				if (!localStorage.getItem(PROGRESS_KEY)) localStorage.setItem(PROGRESS_KEY, saved);
+			}
+		} catch {}
+	}, []);
+	const completed = activeTopics.reduce((sum, t) => sum + Object.keys(progress).filter((k) => k.startsWith(`${t.id}-`)).length, 0), totalSets = activeTopics.length * 10;
+	const selectTopic = (next) => {
+		setTopicId(next.id);
+		setStrand(next.strand);
+		setQuiz(null);
+		setSelected(null);
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth"
+		});
+	};
+	const selectYear = (nextYear) => {
+		const nextTopics = nextYear === 2 ? TOPICS : YEAR3_TOPICS;
+		setYear(nextYear);
+		setStrand("Number");
+		setTopicId(nextTopics[0].id);
+		setQuiz(null);
+		setSelected(null);
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth"
+		});
+	};
+	const startSet = (set) => {
+		setQuiz({
+			set,
+			index: 0,
+			answers: []
+		});
+		setSelected(null);
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth"
+		});
+	};
+	const choose = (answer) => {
+		if (!quiz || selected) return;
+		setSelected(answer);
+	};
+	const next = () => {
+		if (!quiz || !selected) return;
+		const answers = [...quiz.answers, selected];
+		if (quiz.index === 19) {
+			const score = answers.reduce((sum, a, j) => sum + (a === questions[j].answer ? 1 : 0), 0);
+			const nextProgress = {
+				...progress,
+				[`${topic.id}-${quiz.set}`]: {
+					score,
+					completedAt: (/* @__PURE__ */ new Date()).toISOString()
+				}
+			};
+			setProgress(nextProgress);
+			localStorage.setItem(PROGRESS_KEY, JSON.stringify(nextProgress));
+			setQuiz({
+				...quiz,
+				index: 20,
+				answers
+			});
+			setSelected(null);
+		} else {
+			setQuiz({
+				...quiz,
+				index: quiz.index + 1,
+				answers
+			});
+			setSelected(null);
+		}
+	};
+	const current = quiz && quiz.index < 20 ? questions[quiz.index] : null;
+	const finalScore = quiz && quiz.index === 20 ? quiz.answers.reduce((sum, a, j) => sum + (a === questions[j].answer ? 1 : 0), 0) : 0;
+	const openVideo = topic.videoUrl || `https://www.youtube.com/watch?v=${topic.videoId}${topic.videoStart ? `&t=${topic.videoStart}s` : ""}`;
+	if (quiz) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
+		className: "quiz-page",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+			className: "quiz-top",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+				className: "back",
+				onClick: () => {
+					setQuiz(null);
+					setSelected(null);
+				},
+				children: ["← Back to ", topic.title]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "quiz-meta",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: ["Set ", quiz.set] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("b", { children: [Math.min(quiz.index + 1, 20), " / 20"] })]
+			})]
+		}), current ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+			className: "quiz-card",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "quiz-progress",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { width: `${quiz.index / 20 * 100}%` } })
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "question-label",
+					children: ["QUESTION ", quiz.index + 1]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: current.prompt }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "answers",
+					children: current.choices.map((choice) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						onClick: () => choose(choice),
+						className: selected ? choice === current.answer ? "correct" : choice === selected ? "wrong" : "dim" : "",
+						children: choice
+					}, choice))
+				}),
+				selected && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: selected === current.answer ? "feedback good" : "feedback try",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: selected === current.answer ? "Ka pai! Correct." : "Not quite — keep learning." }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: current.hint }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: next,
+							children: quiz.index === 19 ? "See my result" : "Next question →"
+						})
+					]
+				})
+			]
+		}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+			className: "result-card",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "result-ring",
+					children: [finalScore, /* @__PURE__ */ (0, import_jsx_runtime.jsx)("small", { children: "/20" })]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+					className: "eyebrow",
+					children: [
+						"SET ",
+						quiz.set,
+						" COMPLETE"
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: finalScore >= 16 ? "Excellent exploring!" : finalScore >= 12 ? "Good progress!" : "Let’s practise this trail again." }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "Your result is saved on this device. Try another set, or repeat this one to improve." }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "result-actions",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						onClick: () => startSet(quiz.set),
+						children: "Try set again"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						className: "primary",
+						onClick: () => {
+							setQuiz(null);
+							setSelected(null);
+						},
+						children: "Choose another set"
+					})]
+				})
+			]
+		})]
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
+		className: "app-shell",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+				className: "site-header",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+						className: "identity",
+						href: "#top",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "mark",
+							"aria-hidden": "true",
+							children: "NZ"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: "NZ Maths Curriculum" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("small", { children: "New Zealand Years 2 & 3" })] })]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "overall",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: completed }),
+							" of ",
+							totalSets,
+							" Year ",
+							year,
+							" sets complete"
+						] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("i", { style: { width: `${completed / totalSets * 100}%` } }) })]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+						className: "curriculum-link",
+						href: CURRICULUM_URLS[year],
+						target: "_blank",
+						rel: "noreferrer",
+						children: [
+							"Year ",
+							year,
+							" Curriculum ↗"
+						]
+					})
+				]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("nav", {
+				className: "year-tabs",
+				"aria-label": "Choose school year",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Choose a learning level" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: [2, 3].map((level) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					className: year === level ? "active" : "",
+					onClick: () => selectYear(level),
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("b", { children: ["Year ", level] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("small", { children: level === 2 ? `${TOPICS.length} knowledge points` : `${YEAR3_TOPICS.length} knowledge points` })]
+				}, level)) })]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "strand-bar",
+				"aria-label": "Curriculum strands",
+				children: STRANDS.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					className: strand === s ? "active" : "",
+					onClick: () => {
+						setStrand(s);
+						selectTopic(activeTopics.find((t) => t.strand === s));
+					},
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: s === "Number" ? "123" : s === "Algebra" ? "=" : s === "Measurement" ? "↔" : s === "Geometry" ? "◇" : "▥" }), s]
+				}, s))
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "workspace",
+				id: "top",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("aside", {
+					className: "topic-list",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "list-label",
+						children: [
+							"Year ",
+							year,
+							" · ",
+							strand,
+							" trail"
+						]
+					}), activeTopics.filter((t) => t.strand === strand).map((t, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						className: t.id === topic.id ? "selected" : "",
+						onClick: () => selectTopic(t),
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "topic-number",
+								children: String(index + 1).padStart(2, "0")
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: t.title }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("small", { children: t.focus })] }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("i", { children: [Object.keys(progress).filter((k) => k.startsWith(`${t.id}-`)).length, "/10"] })
+						]
+					}, t.id))]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+					className: "lesson",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "trail",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+								"Year ",
+								year,
+								" · ",
+								topic.strand
+							] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("b", { children: [
+								"Knowledge point ",
+								activeTopics.indexOf(topic) + 1,
+								" of ",
+								activeTopics.length
+							] })]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: topic.title }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "topic-focus",
+							children: topic.focus
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "summary",
+							children: topic.summary
+						}),
+						topic.id.includes("money") && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+							className: "money-guide",
+							"aria-label": "New Zealand money guide",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "eyebrow",
+									children: "THE BIG IDEA"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", { children: "Money tells us how much something is worth." }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: ["New Zealand uses dollars and cents. One dollar has the same value as 100 cents.", year === 3 ? " Change is the payment minus the price." : ""] }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "money-equation",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: "$1" }),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "=" }),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: "100c" })
+									]
+								})
+							] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "eyebrow",
+									children: "NEW ZEALAND MONEY"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "denominations",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "10c" }),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "20c" }),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "50c" }),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "$1" }),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "$2" }),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "$5" }),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "$10" }),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "$20" })
+									]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+									className: "money-note",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: "Video note:" }), " Math Antics uses US coins, but the dollars-and-cents maths works in New Zealand too. The practice below uses New Zealand money."]
+								})
+							] })]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "lesson-grid",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "video-column",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "video-card",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+											className: "video-frame",
+											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", {
+												src: `https://www.youtube-nocookie.com/embed/${topic.videoId}?rel=0${topic.videoStart ? `&start=${topic.videoStart}` : ""}`,
+												title: topic.videoTitle,
+												allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share",
+												allowFullScreen: true
+											}, topic.id)
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "video-foot",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("small", { children: "WATCH FIRST" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: topic.videoTitle })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+												href: openVideo,
+												target: "_blank",
+												rel: "noreferrer",
+												children: "Open on YouTube ↗"
+											})]
+										})]
+									}),
+									topic.videoId2 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "video-card",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+											className: "video-frame",
+											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", {
+												src: `https://www.youtube-nocookie.com/embed/${topic.videoId2}?rel=0`,
+												title: topic.videoTitle2 || "Related maths lesson",
+												allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share",
+												allowFullScreen: true
+											}, `${topic.id}-second`)
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "video-foot",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("small", { children: "WATCH NEXT" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: topic.videoTitle2 })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+												href: `https://www.youtube.com/watch?v=${topic.videoId2}`,
+												target: "_blank",
+												rel: "noreferrer",
+												children: "Open on YouTube ↗"
+											})]
+										})]
+									}),
+									topic.videoId3 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "video-card",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+											className: "video-frame",
+											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", {
+												src: `https://www.youtube-nocookie.com/embed/${topic.videoId3}?rel=0`,
+												title: topic.videoTitle3 || "Related maths lesson",
+												allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share",
+												allowFullScreen: true
+											}, `${topic.id}-third`)
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "video-foot",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("small", { children: "WATCH NEXT" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: topic.videoTitle3 })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+												href: `https://www.youtube.com/watch?v=${topic.videoId3}`,
+												target: "_blank",
+												rel: "noreferrer",
+												children: "Open on YouTube ↗"
+											})]
+										})]
+									}),
+									topic.videoId4 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "video-card",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+											className: "video-frame",
+											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", {
+												src: `https://www.youtube-nocookie.com/embed/${topic.videoId4}?rel=0`,
+												title: topic.videoTitle4 || "Related maths lesson",
+												allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share",
+												allowFullScreen: true
+											}, `${topic.id}-fourth`)
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "video-foot",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("small", { children: "WATCH NEXT" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: topic.videoTitle4 })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+												href: `https://www.youtube.com/watch?v=${topic.videoId4}`,
+												target: "_blank",
+												rel: "noreferrer",
+												children: "Open on YouTube ↗"
+											})]
+										})]
+									})
+								]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "goals-card",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										className: "eyebrow",
+										children: "YOU WILL LEARN TO"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", { children: topic.outcomes.map((x) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "✓" }), x] }, x)) }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "speak",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: "Explain it aloud" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "After practising, tell someone in English: “I worked it out by…”" })]
+									})
+								]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+							className: "practice-section",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "practice-heading",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+											className: "eyebrow",
+											children: "ONLINE PRACTICE"
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", { children: "10 sets · 20 questions each" }),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "Choose any set. Questions change across the trail and give instant feedback." })
+									] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "saved-note",
+										children: "Progress saves on this device"
+									})]
+								}),
+								year === 3 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+									className: "official-practice",
+									href: OFFICIAL_YEAR3_PRACTICE_URL,
+									target: "_blank",
+									rel: "noreferrer",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "official-mark",
+											children: "NZ"
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("small", { children: "NZ CURRICULUM PRACTICE" }),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: "Try the official Year 3 maths activities" }),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "More online practice linked by the New Zealand Ministry of Education." })
+										] }),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Open Year 3 practice ↗" })
+									]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "set-grid",
+									children: Array.from({ length: 10 }, (_, i) => i + 1).map((set) => {
+										const result = progress[`${topic.id}-${set}`];
+										return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+											onClick: () => startSet(set),
+											className: result ? "done" : "",
+											children: [
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: result ? "✓" : set }),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("b", { children: ["Set ", set] }),
+												/* @__PURE__ */ (0, import_jsx_runtime.jsx)("small", { children: result ? `${result.score}/20 · Try again` : "20 questions" })
+											]
+										}, set);
+									})
+								})
+							]
+						})
+					]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("footer", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "Built around the Ministry of Education’s Year 2 and Year 3 Mathematics and Statistics expectations." }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+				href: CURRICULUM_URLS[year],
+				target: "_blank",
+				rel: "noreferrer",
+				children: [
+					"View the official Year ",
+					year,
+					" guide ↗"
+				]
+			})] })
+		]
+	});
+}
+//#endregion
+export { MathsApp as default };
