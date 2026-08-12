@@ -1,18 +1,18 @@
 export default {
-  "bootstrapScriptContent": "import(\"/assets/index-BwCRRIOP.js\")",
+  "bootstrapScriptContent": "import(\"/assets/index-C57zHVfX.js\")",
   "clientReferenceDeps": {
     "cba597c2b39c": {
       "js": [
-        "/assets/MathsApp-CcXtb5wD.js",
+        "/assets/MathsApp-CNJDZbrl.js",
         "/assets/rolldown-runtime-S-ySWqyJ.js",
         "/assets/framework-DjPHiq1u.js",
-        "/assets/index-BwCRRIOP.js"
+        "/assets/index-C57zHVfX.js"
       ],
       "css": []
     },
     "593f344dc510": {
       "js": [
-        "/assets/index-BwCRRIOP.js",
+        "/assets/index-C57zHVfX.js",
         "/assets/rolldown-runtime-S-ySWqyJ.js",
         "/assets/framework-DjPHiq1u.js"
       ],
@@ -20,16 +20,16 @@ export default {
     },
     "15c18cfaeeff": {
       "js": [
-        "/assets/layout-segment-context-Df8iNXQf.js",
+        "/assets/layout-segment-context-B4jSDdCC.js",
         "/assets/rolldown-runtime-S-ySWqyJ.js",
-        "/assets/index-BwCRRIOP.js",
+        "/assets/index-C57zHVfX.js",
         "/assets/framework-DjPHiq1u.js"
       ],
       "css": []
     },
     "8c0f216c4604": {
       "js": [
-        "/assets/index-BwCRRIOP.js",
+        "/assets/index-C57zHVfX.js",
         "/assets/rolldown-runtime-S-ySWqyJ.js",
         "/assets/framework-DjPHiq1u.js"
       ],

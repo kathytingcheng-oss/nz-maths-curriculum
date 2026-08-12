@@ -1116,9 +1116,9 @@ function makeQuestions(topic, setIndex) {
 		const turn = quarters === 1 ? "a quarter" : quarters === 2 ? "a half" : quarters === 3 ? "a three-quarter" : "a full";
 		out.push(q(`Face ${dirs[start]}. Make ${turn} turn ${clockwise ? "clockwise" : "anti-clockwise"}. Which way are you facing?`, dirs[finish], dirs.filter((d) => d !== dirs[finish]), "A quarter turn moves to the next direction; a half turn faces the opposite way.", random));
 	} else if (topic.id === "calendar") {
-		const m = Math.floor(random() * 12);
-		if (i % 2 === 0) out.push(q(`Which month comes after ${months[m]}?`, months[(m + 1) % 12], months.filter((x) => x !== months[(m + 1) % 12]).slice(0, 3), "Move one step forward through the months.", random));
-		else {
+		const m = Math.floor(random() * 12), mode = i % 3;
+		if (mode === 0) out.push(q(`Which month comes after ${months[m]}?`, months[(m + 1) % 12], months.filter((x) => x !== months[(m + 1) % 12]).slice(0, 3), "Move one step forward through the months.", random));
+		else if (mode === 1) {
 			const season = pick([
 				["summer", "December"],
 				["autumn", "March"],
@@ -1126,6 +1126,18 @@ function makeQuestions(topic, setIndex) {
 				["spring", "September"]
 			]);
 			out.push(q(`In Aotearoa New Zealand, which month begins ${season[0]}?`, season[1], months.filter((x) => x !== season[1]).sort(() => random() - .5).slice(0, 3), "New Zealand is in the Southern Hemisphere.", random));
+		} else {
+			const durationItems = [
+				["the time for a blink", "seconds"],
+				["the time to brush your teeth", "minutes"],
+				["a school day", "hours"],
+				["a weekend", "days"],
+				["a school term", "weeks"],
+				["a season", "months"],
+				["a learner's age", "years"]
+			];
+			const item = pick(durationItems);
+			out.push(q(`Which duration unit is most sensible for ${item[0]}?`, item[1], durationItems.map((x) => x[1]).filter((x) => x !== item[1]).sort(() => random() - .5).slice(0, 3), "Choose the unit that matches how long the activity or event lasts.", random));
 		}
 	} else if (topic.id === "clock") {
 		const hour = 1 + Math.floor(random() * 12), minute = pick([
