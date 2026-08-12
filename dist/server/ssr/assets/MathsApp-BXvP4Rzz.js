@@ -285,7 +285,9 @@ var TOPICS = [
 		videoId: "d6FJx3va9bQ",
 		videoTitle: "Telling Time: O'clock, Half Past and Quarters · Janine Williams",
 		videoId2: "HKZOGR1pz1I",
-		videoTitle2: "Telling Time: Quarter To · Learn and Play Online"
+		videoTitle2: "Telling Time: Quarter To · Learn and Play Online",
+		videoId3: "X9wOtw8HGCI",
+		videoTitle3: "Match Analogue Clocks to Digital Times · Little Dreamers Education"
 	},
 	{
 		id: "shapes",
