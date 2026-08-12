@@ -358,20 +358,17 @@ var TOPICS = [
 		id: "interpret-data",
 		strand: "Statistics",
 		title: "Compare & Explain Data",
-		focus: "Compare • answer • conclude",
-		summary: "Compare results and choose or write the statement that best answers a statistical question.",
+		focus: "Most • least • more • total • conclude",
+		summary: "Read graphs and tables to compare categories, calculate differences and totals, and choose conclusions supported by the data.",
 		outcomes: [
 			"Find most and least common categories",
 			"Answer how many more and total questions",
 			"Choose a conclusion supported by data"
 		],
-		videoId: COMPILATION,
-		videoStart: 3804,
-		videoTitle: "Understanding Data · Scratch Garden",
+		videoId: "twz45pt3Cp4",
+		videoTitle: "Compare Picture and Bar Graphs · Khan Academy",
 		videoId2: "Va_slzMjcgg",
-		videoTitle2: "Compare Categories and Find Totals · IXL",
-		videoId3: "yZJR2MzkBrU",
-		videoTitle3: "Read Picture Graphs and Compare Data · NUMBEROCK"
+		videoTitle2: "Most, Least, How Many More and Total · IXL"
 	}
 ];
 var YEAR3_TOPICS = [
@@ -1191,6 +1188,23 @@ function makeQuestions(topic, setIndex) {
 			"How old is the fruit?",
 			"What day is today?"
 		], "A statistical question should allow different answers that can be grouped.", random));
+	} else if (topic.id === "interpret-data") {
+		const cats = 2 + Math.floor(random() * 8), dogs = 1 + Math.floor(random() * 7), fish = 1 + Math.floor(random() * 5), values = {
+			cats,
+			dogs,
+			fish
+		}, mode = i % 3;
+		if (mode === 0) {
+			const answer = Object.entries(values).sort((a, b) => b[1] - a[1])[0][0];
+			const least = Object.entries(values).sort((a, b) => a[1] - b[1])[0][0];
+			out.push(q(`Survey results — cats: ${cats}, dogs: ${dogs}, fish: ${fish}. Which category is most common?`, answer, [least, ...Object.keys(values).filter((x) => x !== answer && x !== least)], "The most common category has the greatest count.", random));
+		} else if (mode === 1) {
+			const names = Object.keys(values), a = pick(names), b = pick(names.filter((x) => x !== a)), diff = Math.abs(values[a] - values[b]);
+			out.push(q(`Cats: ${cats}, dogs: ${dogs}, fish: ${fish}. How many more ${values[a] >= values[b] ? a : b} than ${values[a] >= values[b] ? b : a}?`, `${diff}`, numericChoices(diff, random), "Subtract the smaller category count from the larger count.", random));
+		} else {
+			const total = cats + dogs + fish;
+			out.push(q(`Survey results — cats: ${cats}, dogs: ${dogs}, fish: ${fish}. What is the total number of responses?`, `${total}`, numericChoices(total, random), "Add all category counts to find the total.", random));
+		}
 	} else {
 		const cats = 2 + Math.floor(random() * 8), dogs = 1 + Math.floor(random() * 7), fish = 1 + Math.floor(random() * 5), mode = i % 3;
 		if (mode === 0) {
