@@ -1836,7 +1836,7 @@ function createInlineScriptTag(content, nonce) {
 * LICENSE file in the root directory of this source tree.
 */
 var require_react_jsx_runtime_production = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element");
+	var REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
 	function jsxProd(type, config, maybeKey) {
 		var key = null;
 		void 0 !== maybeKey && (key = "" + maybeKey);
@@ -1854,6 +1854,7 @@ var require_react_jsx_runtime_production = /* @__PURE__ */ __commonJSMin(((expor
 			props: maybeKey
 		};
 	}
+	exports.Fragment = REACT_FRAGMENT_TYPE;
 	exports.jsx = jsxProd;
 	exports.jsxs = jsxProd;
 }));
@@ -11668,7 +11669,7 @@ var client_references_default = {
 		};
 	},
 	"cba597c2b39c": async () => {
-		const m = await import("./assets/MathsApp-B0hD8TI6.js");
+		const m = await import("./assets/MathsApp-pZuB4Rem.js");
 		return { get "default"() {
 			return m["default"];
 		} };

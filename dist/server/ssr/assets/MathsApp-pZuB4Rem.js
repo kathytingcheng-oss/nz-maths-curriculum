@@ -1175,7 +1175,32 @@ function makeQuestions(topic, setIndex) {
 		], start = Math.floor(random() * 4), turn = i % 2 === 0 ? 1 : 2;
 		const a = orientations[start], b = orientations[(start + turn) % 4], c = orientations[(start + turn * 2) % 4], answer = orientations[(start + turn * 3) % 4];
 		const turnName = turn === 1 ? "quarter turn" : "half turn";
-		out.push(q(`Look at the shape pattern:\n${a}  —slide→  ${a}  —${turnName}→  ${b}  —slide→  ${b}  —${turnName}→  ${c}  —slide→  ${c}  —${turnName}→  __\n\nWhich shape orientation comes next?`, answer, orientations.filter((x) => x !== answer), "A slide changes the position but keeps the same orientation. A turn changes the direction the shape points.", random));
+		out.push(q(`SHAPE_PATTERN:${JSON.stringify({ items: [
+			{
+				shape: a,
+				op: "slide"
+			},
+			{
+				shape: a,
+				op: turnName
+			},
+			{
+				shape: b,
+				op: "slide"
+			},
+			{
+				shape: b,
+				op: turnName
+			},
+			{
+				shape: c,
+				op: "slide"
+			},
+			{
+				shape: c,
+				op: turnName
+			}
+		] })}`, answer, orientations.filter((x) => x !== answer), "A slide changes the position but keeps the same orientation. A turn changes the direction the shape points.", random));
 	} else if (topic.id === "position") {
 		const dirs = [
 			"left",
@@ -1848,87 +1873,111 @@ function MathsApp() {
 	const current = quiz && quiz.index < 20 ? questions[quiz.index] : null;
 	const finalScore = quiz && quiz.index === 20 ? quiz.answers.reduce((sum, a, j) => sum + (a === questions[j].answer ? 1 : 0), 0) : 0;
 	const openVideo = topic.videoUrl || `https://www.youtube.com/watch?v=${topic.videoId}${topic.videoStart ? `&t=${topic.videoStart}s` : ""}`;
-	if (quiz) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
-		className: "quiz-page",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
-			className: "quiz-top",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-				className: "back",
-				onClick: () => {
-					setQuiz(null);
-					setSelected(null);
-				},
-				children: ["← Back to ", topic.title]
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "quiz-meta",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: ["Set ", quiz.set] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("b", { children: [Math.min(quiz.index + 1, 20), " / 20"] })]
+	if (quiz) {
+		const shapeData = current?.prompt.startsWith("SHAPE_PATTERN:") ? JSON.parse(current.prompt.slice(14)) : null;
+		return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
+			className: "quiz-page",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+				className: "quiz-top",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					className: "back",
+					onClick: () => {
+						setQuiz(null);
+						setSelected(null);
+					},
+					children: ["← Back to ", topic.title]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "quiz-meta",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: ["Set ", quiz.set] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("b", { children: [Math.min(quiz.index + 1, 20), " / 20"] })]
+				})]
+			}), current ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+				className: "quiz-card",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "quiz-progress",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { width: `${quiz.index / 20 * 100}%` } })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "question-label",
+						children: ["QUESTION ", quiz.index + 1]
+					}),
+					shapeData ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+						className: "shape-question-title",
+						children: "What shape orientation comes next?"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "shape-sequence",
+						children: [shapeData.items.map((item, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "shape-step",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "shape-tile",
+								children: item.shape
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: item.op })]
+						}, `${index}-${item.shape}`)), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "shape-step",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "shape-tile missing",
+								children: "?"
+							})
+						})]
+					})] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: current.prompt }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "answers",
+						children: current.choices.map((choice) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: () => choose(choice),
+							className: `answer-choice ${shapeData ? "shape-choice" : ""} ${selected ? choice === current.answer ? "correct" : choice === selected ? "wrong" : "dim" : ""}`,
+							children: shapeData ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "answer-shape",
+								children: choice
+							}) : choice
+						}, choice))
+					}),
+					selected && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: selected === current.answer ? "feedback good" : "feedback try",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: selected === current.answer ? "Ka pai! Correct." : "Not quite — keep learning." }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: current.hint }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+								onClick: next,
+								children: quiz.index === 19 ? "See my result" : "Next question →"
+							})
+						]
+					})
+				]
+			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+				className: "result-card",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "result-ring",
+						children: [finalScore, /* @__PURE__ */ (0, import_jsx_runtime.jsx)("small", { children: "/20" })]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "eyebrow",
+						children: [
+							"SET ",
+							quiz.set,
+							" COMPLETE"
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: finalScore >= 16 ? "Excellent exploring!" : finalScore >= 12 ? "Good progress!" : "Let’s practise this trail again." }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "Your result is saved on this device. Try another set, or repeat this one to improve." }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "result-actions",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							onClick: () => startSet(quiz.set),
+							children: "Try set again"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							className: "primary",
+							onClick: () => {
+								setQuiz(null);
+								setSelected(null);
+							},
+							children: "Choose another set"
+						})]
+					})
+				]
 			})]
-		}), current ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
-			className: "quiz-card",
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "quiz-progress",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { width: `${quiz.index / 20 * 100}%` } })
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-					className: "question-label",
-					children: ["QUESTION ", quiz.index + 1]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: current.prompt }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "answers",
-					children: current.choices.map((choice) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-						onClick: () => choose(choice),
-						className: selected ? choice === current.answer ? "correct" : choice === selected ? "wrong" : "dim" : "",
-						children: choice
-					}, choice))
-				}),
-				selected && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: selected === current.answer ? "feedback good" : "feedback try",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("b", { children: selected === current.answer ? "Ka pai! Correct." : "Not quite — keep learning." }),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: current.hint }),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-							onClick: next,
-							children: quiz.index === 19 ? "See my result" : "Next question →"
-						})
-					]
-				})
-			]
-		}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
-			className: "result-card",
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "result-ring",
-					children: [finalScore, /* @__PURE__ */ (0, import_jsx_runtime.jsx)("small", { children: "/20" })]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-					className: "eyebrow",
-					children: [
-						"SET ",
-						quiz.set,
-						" COMPLETE"
-					]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: finalScore >= 16 ? "Excellent exploring!" : finalScore >= 12 ? "Good progress!" : "Let’s practise this trail again." }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "Your result is saved on this device. Try another set, or repeat this one to improve." }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "result-actions",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-						onClick: () => startSet(quiz.set),
-						children: "Try set again"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-						className: "primary",
-						onClick: () => {
-							setQuiz(null);
-							setSelected(null);
-						},
-						children: "Choose another set"
-					})]
-				})
-			]
-		})]
-	});
+		});
+	}
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
 		className: "app-shell",
 		children: [
