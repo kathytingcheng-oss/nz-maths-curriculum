@@ -83,7 +83,7 @@
   border-left: 3px solid var(--coral);
 }
 
-.money-guide.year-two-money {
+.money-guide.real-nz-money {
   grid-template-columns: minmax(220px, 0.65fr) minmax(0, 1.35fr);
 }
 
@@ -154,7 +154,7 @@
     grid-template-columns: 1fr;
   }
 
-  .money-guide.year-two-money {
+  .money-guide.real-nz-money {
     grid-template-columns: 1fr;
   }
 }
