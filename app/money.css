@@ -83,8 +83,84 @@
   border-left: 3px solid var(--coral);
 }
 
+.money-guide.year-two-money {
+  grid-template-columns: minmax(220px, 0.65fr) minmax(0, 1.35fr);
+}
+
+.nz-coin-gallery {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(74px, 1fr));
+  gap: 10px;
+  margin: 10px 0 14px;
+}
+
+.nz-coin-gallery figure {
+  display: grid;
+  grid-template-rows: minmax(86px, 1fr) auto;
+  place-items: center;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 10px 7px 8px;
+  border: 1px solid #d8cba6;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.nz-coin-gallery img {
+  width: 100%;
+  max-width: 108px;
+  height: 86px;
+  object-fit: contain;
+}
+
+.nz-coin-gallery figcaption {
+  color: var(--fern-dark);
+  font-size: 15px;
+  font-weight: 850;
+}
+
+.nz-note-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.nz-note-values span {
+  padding: 8px 11px;
+  border: 1px solid #b7d0ba;
+  border-radius: 8px;
+  background: #e4f0e5;
+  color: #245442;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.money-guide .currency-credit {
+  font-size: 11px;
+}
+
+.currency-source {
+  display: inline-block;
+  margin: 8px 0 14px;
+  color: var(--fern);
+  font-size: 12px;
+  font-weight: 800;
+}
+
 @media (max-width: 980px) {
   .money-guide {
     grid-template-columns: 1fr;
+  }
+
+  .money-guide.year-two-money {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .nz-coin-gallery {
+    grid-template-columns: repeat(3, minmax(74px, 1fr));
   }
 }
